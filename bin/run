@@ -460,6 +460,9 @@ run_init_wp() {
     --admin_email=$admin_email \
     --admin_password=$admin_password
 
+  # Update admin user in case it's been changed
+  bin/wp user update $admin_user --user_email=$admin_email --user_pass=$admin_password
+
   # Activate certain plugins by default
   bin/wp plugin activate intervention cmb2
 

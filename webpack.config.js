@@ -119,7 +119,7 @@ const config = {
     // writeToDisk: true,
     proxy: {
       context: () => true,
-      target: 'https://srv',
+      target: process.env.UPSTREAM,
       secure: false,
     }
   },

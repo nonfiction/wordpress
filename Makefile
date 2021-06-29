@@ -65,6 +65,7 @@ pull: pull_files pull_db
 # Launch a bash shell to exlore
 shell:			; docker exec -it $(shell bin/get container_id) bash
 oneoff:			; docker run -it --rm -v $(shell bin/get uploads):/srv/web/content/uploads $(shell bin/get image):latest bash
+login:			; @bin/get login
 
 # Initialize website
 init_db:		; @bin/run init_db

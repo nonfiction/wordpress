@@ -26,6 +26,9 @@ services:
         traefik.http.routers.<%= $(bin/get app) %>.entrypoints: "websecure"
         traefik.http.routers.<%= $(bin/get app) %>.tls.certresolver: "digitalocean"
 
+    environment:
+      UPSTREAM: "https://<%= $(bin/get app) %>_srv"
+
     volumes:
       - <%= $(pwd) %>/webpack.config.js:/srv/webpack.config.js
       - <%= $(pwd) %>/node_modules:/srv/node_modules
