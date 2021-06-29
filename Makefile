@@ -68,7 +68,7 @@ oneoff:			; docker run -it --rm -v $(shell bin/get uploads):/srv/web/content/upl
 # Initialize website
 init_db:		; @bin/run init_db
 init_wp: 		; @bin/run init_wp
-init: init_db init_wp
+init: init_db npm composer up init_wp 
 
 # Backups are hourly, but make one right now
 backup: 		; ssh root@host.$(shell bin/get swarm) 'su -c "rsnapshot hourly" - work'
