@@ -18,8 +18,8 @@ public      -- Launch this site on the load balancer
 push        -- Push db/files to current docker context
 pull        -- Pull db/files from current docker context
 shell       -- Launch a bash shell to explore
-init        -- Initialize website for development
 backup      -- Backups are hourly, but make one right now
+init        -- Initialize website for development
 ```
 
 ## Other examples:  
