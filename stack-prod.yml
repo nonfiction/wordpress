@@ -22,7 +22,8 @@ services:
         traefik.http.routers.<%= $(bin/get app) %>.entrypoints: "websecure"
         traefik.http.routers.<%= $(bin/get app) %>.tls.certresolver: "digitalocean"
 
-        traefik.http.middlewares.basicauth.basicauth.users: '<%= $(bin/get basic_auth $(bin/get upstream_user) $(bin/get upstream_password)) %>'
+        traefik.http.routers.<%= $(bin/get app) %>.middlewares: "basicauth-<%= $(bin/get app) %>@docker"
+        traefik.http.middlewares.basicauth-<%= $(bin/get app) %>.basicauth.users: '<%= $(bin/get basic_auth $(bin/get upstream_user) $(bin/get upstream_password)) %>'
 
     environment:
       HOST: "<%= $(bin/get host) %>"
