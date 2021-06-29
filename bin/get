@@ -11,8 +11,7 @@ done
 
 # Load dotenv if available
 [ -e .env ] && dotenv="$(grep -Ev '^#' .env | xargs)"
-[ -z "$dotenv" ] || export "$dotenv"
-
+[ -z "$dotenv" ] || export $dotenv
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # get_app
@@ -210,7 +209,7 @@ get_env() {
   [ -z "$1" ] && exit 1
 
   # Set value from environment
-  local var=${!1}
+  local var="${!1}"
 
   # If this is null, load from file
   if [ -z "$var" ]; then
@@ -510,9 +509,9 @@ get_uploads() {
 get_upstream_user() {
 
   if [ -z "$UPSTREAM_USER" ]; then
-    UPSTREAM_USER=$(get_env UPSTREAM_USER)
+    UPSTREAM_USER="$(get_env UPSTREAM_USER)"
     if [ -z "$UPSTREAM_USER" ]; then
-      UPSTREAM_USER=$(get_app)
+      UPSTREAM_USER="$(get_app)"
     fi
   fi
 
