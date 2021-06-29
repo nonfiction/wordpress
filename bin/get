@@ -126,7 +126,7 @@ get_db_host() {
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 get_db_name() {
 
-  local app=$(get_app)
+  local app=$(get_app | tr - _)
   local swarm=$(get_swarm $@)
 
   [ -z "$app" ] && exit 1 
@@ -178,7 +178,7 @@ get_db_user() {
   if [ -z "$DB_USER" ]; then
     DB_USER=$(get_env DB_USER)
     if [ -z "$DB_USER" ]; then
-      DB_USER=$(get_app)
+      DB_USER=$(get_app | tr - _)
     fi
   fi
 
