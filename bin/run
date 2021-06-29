@@ -472,6 +472,9 @@ run_init_wp() {
   # Default pretty URLs
   bin/wp rewrite structure /%postname%/
 
+  # Update Caddyfile with placeholder host
+  sed -i "s/wordpress\.lb1\.nonfiction.ca/$(bin/get app).lb1.nonfiction.ca/g" Caddyfile
+
   # Print login details
   echo
   bin/get login

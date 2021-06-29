@@ -1,18 +1,26 @@
 # 
-# When ready to launch, uncomment this configuration and change 
-# example.nonfiction.ca and www.example.nonfiction.ca to the 
+# When ready to launch, modify this configuration with the 
 # real domain names. Then, run the command `make public` and 
-# choose your load balancer.
+# choose a load balancer.
 #
 
-# example.nonfiction.ca {
-#
-#   reverse_proxy <%= $(bin/get upstreams); %> {
-#     lb_policy uri_hash
-#   }
-#
+wordpress.lb1.nonfiction.ca {
+
+  reverse_proxy <%= $(bin/get upstreams); %> {
+    lb_policy uri_hash
+  }
+
+}
+
+# Example how to enforce www
+# example.com {
+#   redir https://www.example.com{uri}
 # }
 #
-# www.example.nonfiction.ca {
-#   redir https://example.nonfiction.ca{uri}
+# Example how to enforce non-www
+# www.example.com {
+#   redir https://example.com{uri}
 # }
+#
+# See more here: 
+# https://caddyserver.com/docs/caddyfile

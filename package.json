@@ -1,10 +1,10 @@
 {
-  "name": "bedrock",
+  "name": "wordpress",
   "version": "0.0.1",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git://github.com/nonfiction/bedrock.git"
+    "url": "git://github.com/nonfiction/wordpress.git"
   },
   "browserslist": [
     ">1%",
