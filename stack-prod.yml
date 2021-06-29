@@ -22,6 +22,8 @@ services:
         traefik.http.routers.<%= $(bin/get app) %>.entrypoints: "websecure"
         traefik.http.routers.<%= $(bin/get app) %>.tls.certresolver: "digitalocean"
 
+        traefik.http.middlewares.basicauth.basicauth.users: '<%= $(bin/get basic_auth $(bin/get upstream_user) $(bin/get upstream_password)) %>'
+
     environment:
       HOST: "<%= $(bin/get host) %>"
       WP_ENV: "production"
