@@ -1,0 +1,25 @@
+{
+  "name": "nf/grid",
+
+  "title": "Grid",
+  "icon": "screenoptions",
+  "category": "design",
+
+  "supports": {
+     "html": true,
+     "anchor": true,
+		 "lightBlockWrapper": false
+  },
+
+  "attributes": {
+    "width":     { "type": "string" },
+    "columns":        { "type": "string", "default": "2" }
+  },
+
+  "example": {
+    "attributes": {
+      "columns": "2"
+    }
+  }
+
+}

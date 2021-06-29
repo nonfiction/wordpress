@@ -1,0 +1,41 @@
+{
+  "name": "nf/callout",
+
+  "title": "Callout",
+  "icon": "admin-comments",
+  "category": "common",
+
+  "supports": {
+     "html": false
+  },
+
+  "attributes": {
+    "color":        { "type": "string" },
+    "title":        { "type": "string" },
+    "description":  { "type": "string" },
+    "button_text":        { "type": "string" },
+    "button_link":        { "type": "string" },
+    "photo_id":  { "type": "integer" }, 
+    "photo_url":   { "type": "string" },
+    "icon_id":  { "type": "integer" }, 
+    "icon_url":   { "type": "string" }
+  },
+
+  "example": {
+    "attributes": {
+      "color": "dark",
+      "title": "Example Title",
+      "description": "This is some example text.",
+      "button_text": "Learn More",
+      "button_link": "/",
+      "photo_url": "https://unsplash.it/400/300"
+    }
+  },
+
+  "styles": [
+    { "name": "default", "label": "Default", "isDefault": true },
+    { "name": "large", "label": "Large" },
+    { "name": "landing", "label": "Landing" },
+    { "name": "impact", "label": "Impact" }
+  ]
+}

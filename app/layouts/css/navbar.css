@@ -1,0 +1,212 @@
+.navbar__primary {
+  background: gray;
+}
+
+.navbar__primary > .container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: flex-end;
+  padding: 0;
+  position: relative;
+}
+
+.navbar__primary__menu {
+  position: absolute;
+  top: 62px;
+  left: 0;
+  background: lightgray;
+  z-index: 20;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s;
+}
+
+.navbar__primary__menu--is-active {
+  height: calc(100vh - 130px);
+}
+
+.navbar__primary__menu ul.menu {
+  display: flex;
+  justify-content: center;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  flex-direction: column;
+}
+
+
+.navbar__primary__menu ul.menu li {
+  display: block;
+  flex: 0 0 auto;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  height: auto;
+  font-weight: 600;
+  /* font-size: 14px; */
+  font-size: 24px;
+  text-align: center;
+}
+.navbar__primary__menu ul.menu li a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 15px;
+  text-decoration: none;
+}
+.navbar__primary__menu ul.menu li a {
+  color: #fff;
+  padding: 15px;
+}
+.navbar__primary__menu ul.menu li:first-child a {
+  padding-top: 30px;
+}
+.navbar__primary__menu ul.menu li:last-child a {
+  padding-bottom: 30px;
+}
+
+.navbar__primary__menu ul.menu li.current a,
+.navbar__primary__menu ul.menu li a:hover {
+  color: #ccc;
+}
+
+@media (min-width:768px){ 
+  .navbar__primary__hamburger { display: none; }
+  .navbar__primary__menu { 
+    display: block; 
+    height: auto;
+    background: transparent;
+    position: relative;
+    top: auto;
+  }
+  .navbar__primary__menu ul.menu {
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    height: 100px;
+    flex: 1 1 auto;
+  }
+
+  .navbar__primary__menu ul.menu li {
+    width: auto;
+  }
+
+  .navbar__primary__menu ul.menu li a, 
+  .navbar__primary__menu ul.menu li:first-child a, 
+  .navbar__primary__menu ul.menu li:last-child a { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 0 15px;
+    height: 100px;
+    text-align: center;
+  }
+
+  .navbar__primary__menu ul.menu li:first-child a {
+    padding-left: 0;
+  }
+  .navbar__primary__menu ul.menu li:last-child a { 
+    padding-right: 0;
+  }
+
+  .navbar__primary__menu ul.menu li a span {
+  } 
+
+}
+
+@media (min-width:768px){ 
+/* @media (min-width:992px){  */
+
+  .navbar__primary { 
+    border-top: 10px solid white;
+  }
+
+  /*
+  .navbar__primary__menu { 
+    margin-left: 270px;
+  }
+  */
+
+  .navbar__primary__menu ul.menu {
+    justify-content: flex-end;
+  }
+
+  .navbar__primary__menu ul.menu li a, 
+  .navbar__primary__menu ul.menu li:first-child a, 
+  .navbar__primary__menu ul.menu li:last-child a { 
+    padding: 15px;
+    font-size: 17px;
+  }
+}
+
+@media (min-width:1200px){
+  .navbar__primary__menu ul.menu {
+    justify-content: flex-end;
+  }
+}
+
+.hamburger.is-active .hamburger-inner, .hamburger.is-active .hamburger-inner::before, .hamburger.is-active .hamburger-inner::after,
+.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+  background-color: #fff;
+}
+
+.navbar__brand {
+  background: gray;
+  font-size: 14px;
+  text-transform: uppercase;
+  height: 63px;
+  width: 100%;
+}
+.navbar__brand > .container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  height: 100%;
+}
+
+.navbar__brand__menu ul.menu {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  height: 100%;
+}
+
+.navbar__brand__menu ul.menu li {
+  display: block;
+  flex: 0 0 auto;
+  padding: 0;
+  margin: 0;
+  height: 63px;
+  line-height: 1;
+}
+
+.navbar__brand__menu ul.menu li a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 15px;
+  text-decoration: none;
+  height: 100%;
+}
+
+.navbar__brand__menu a {
+  display: block;
+  padding: 10px 15px;
+  color: #fff;
+}
+
+.navbar__brand__logo__link { 
+  display: block;
+  height: 100%;
+}
+.navbar__brand__logo--h { width: auto; height: 43px; }

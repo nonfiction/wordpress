@@ -1,0 +1,12 @@
+{
+  "name": "page",
+  "metaboxes": [{
+    "title": "Page Properties",
+    "context": "side",
+    "fields": [{
+      "name" : "Hide Title",
+      "type" : "checkbox",
+      "desc" : "Hide the title on this page?"
+    }]
+  }]
+}

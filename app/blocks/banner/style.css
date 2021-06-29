@@ -1,0 +1,269 @@
+.nf-banner {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  z-index: 1;
+  overflow: hidden;
+
+  background-size: cover;
+  background-position: 50% 50%;
+  
+  margin-bottom: 60px;
+}
+
+  .nf-banner::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    top: 0;
+  }
+
+  .nf-banner.is-color-light::after {
+    background: linear-gradient( rgba(28,32,42,0.5),rgba(28,32,42,0.5) );
+  }
+
+  .nf-banner.is-color-dark::after {
+    background: linear-gradient( rgba(28,32,42,0.5),rgba(28,32,42,0.5) );
+  }
+
+  .nf-banner.is-color-blue::after {
+    background: linear-gradient( rgba(20,60,70,0.7),rgba(20,60,70,0.7) );
+  }
+
+  .nf-banner.is-color-yellow::after {
+    background: linear-gradient( rgba(254,191,87,0.8), rgba(254,191,87,0.8) );
+  }
+
+
+.editor .nf-banner {
+  width: 100%;
+  left: auto;
+  right: auto;
+  margin: auto;
+}
+
+
+.wp-block[data-type="nf/banner"] {
+  clear: both; 
+  max-width: 100%;
+}
+
+/*
+.nf-banner::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+
+  width: 100%;
+  height: 100%;
+  background: transparent url(./swoop.png) no-repeat bottom right;
+  background-size: 50%;
+}
+*/
+
+
+
+.nf-banner .nf-banner__main {
+  padding: 20px;  
+  color: #fff;
+  margin: 0 auto;
+  min-height: 30vh;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  position: relative;
+  z-index: 10;
+  /* background: green; */
+
+  margin-right:auto;
+  margin-left:auto;
+  padding-left:15px;
+  padding-right:15px;
+}
+
+@media (min-width:768px){
+  .nf-banner .nf-banner__main { max-width:750px; }
+  /* .nf-banner .nf-banner__inner { max-width:550px; } */
+}
+@media (min-width:992px){
+  .nf-banner .nf-banner__main { max-width:970px; }
+  /* .nf-banner .nf-banner__inner { max-width:770px; } */
+}
+@media (min-width:1200px){
+  .nf-banner .nf-banner__main { max-width:1170px; }
+  /* .nf-banner .nf-banner__inner { max-width:970px; } */
+}
+
+.nf-banner__inner { 
+  width: 60%;
+}
+
+.nf-banner__content {
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.nf-banner__content a {
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.nf-banner__content a:hover {
+  text-decoration: underline;
+}
+
+.nf-banner__aside {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  /* width: 50%; */
+  /* height: 50%; */
+  width: 100%;
+  /* width: 30%; */
+  width: 50%;
+  z-index: 15;
+  background: transparent url(./swoop.png) no-repeat bottom right;
+  background-size: contain;
+  color: #fff;
+  text-align: right;
+  padding: 15px;
+  padding-top: 100px;
+  padding-left: 200px;
+  /* max-width: 600px; */
+
+  display: none;
+}
+
+@media (min-width:992px){
+  .wp-block-nf-banner.is-style-swoop .nf-banner__aside { display: block; }
+  .nf-banner.is-style-swoop .nf-banner__aside { display: block; }
+}
+
+h3.nf-banner__subheading {
+  /* background: rgba(255,0,0,0.5); */
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  text-align: right;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 25px;
+  text-transform: none;
+  /* width: 30%; */
+  /* margin-left: 70%; */
+}
+
+h3.nf-banner__subheading.editor {
+  background: rgb(24, 60, 70);
+}
+
+h3.nf-banner__subheading b,
+h3.nf-banner__subheading strong {
+  font-size: 45px;
+  font-weight: bold;
+  line-height: 53px;
+  color: rgb(148, 156, 81);
+}
+
+@media (min-width:1200px){
+
+  h3.nf-banner__subheading {
+    font-size: 29px;
+    line-height: 32px;
+  }
+  
+  h3.nf-banner__subheading b,
+  h3.nf-banner__subheading strong {
+    font-size: 52px;
+    line-height: 60px;
+  }
+}
+
+.nf-banner__button {
+  color: #fff;
+  border: 2px solid #fff;
+  padding: 6px 30px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-block;
+  max-width: 500px;
+  margin: 15px 0;
+  position: relative;
+  /* z-index: 15; */
+}
+
+.nf-banner__button:hover {
+  background: #fff;
+  color: #183c46;
+}
+
+.nf-banner h1.nf-banner__heading {
+  position: relative;
+  color: #fff;
+  margin: 200px 15px 15px 15px;
+  font-size: 64px;
+}
+
+
+
+@media (min-width:992px){
+  .nf-banner.is-style-swoop h1.nf-banner__heading {
+    margin-top: 400px;
+  }
+}
+
+.wp-block-nf-banner h1.nf-banner__heading { margin-top: 50px; }
+.wp-block-nf-banner.is-style-swoop h1.nf-banner__heading { margin-top: 100px; }
+
+.nf-banner .nf-banner__content {
+  color: #fff;
+  margin: 0 15px 40px 15px;
+  max-width: 600px;
+}
+
+
+.nf-banner .wp-block-nf-banner {
+  background: darkorange;
+}
+
+.nf-banner .wp-block-nf-banner .richtext {
+  border: 1px solid #ddd;
+  margin: 20px;
+  padding: 10px;
+}
+
+.nf-banner__button textarea {
+  background: transparent;
+  color: #000;
+  text-transform: uppercase;
+  border: 2px solid #000;
+  padding: 6px 30px;
+  height: auto;
+  line-height: 1;
+  text-shadow: none;
+}
+
+.nf-banner__button textarea + textarea {
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  padding: 0 5px;
+  line-height: 1;
+  text-transform: none;
+  height: auto;
+  height: 30px;
+}
+

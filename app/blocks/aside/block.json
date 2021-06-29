@@ -1,0 +1,26 @@
+{
+  "name": "nf/aside",
+
+  "title": "Aside",
+  "icon": "screenoptions",
+  "category": "design",
+
+  "supports": {
+     "html": true,
+     "anchor": true,
+		 "lightBlockWrapper": false
+  },
+
+  "attributes": {
+    "heading": { 
+      "type": "string"
+    }
+  },
+
+  "example": {
+    "attributes": {
+      "heading": "Details"
+    }
+  }
+
+}

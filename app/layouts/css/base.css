@@ -1,0 +1,13 @@
+@import "normalize.css";
+
+/* Animate everything */
+/* * { transition: all 0.1s ease; } */
+
+:root {
+
+  /* Scale entire theme - use rem units as px */
+  font-size: 16PX;
+}
+
+/* Hide this */
+.screen-reader-text { display: none; }

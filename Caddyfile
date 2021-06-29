@@ -1,0 +1,18 @@
+# 
+# When ready to launch, uncomment this configuration and change 
+# example.nonfiction.ca and www.example.nonfiction.ca to the 
+# real domain names. Then, run the command `make public` and 
+# choose your load balancer.
+#
+
+# example.nonfiction.ca {
+#
+#   reverse_proxy <%= $(bin/get upstreams); %> {
+#     lb_policy uri_hash
+#   }
+#
+# }
+#
+# www.example.nonfiction.ca {
+#   redir https://example.nonfiction.ca{uri}
+# }

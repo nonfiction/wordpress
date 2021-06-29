@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js no-svg ie lt-ie9 lt-ie8 lt-ie7" {{ site.language_attributes }}> <![endif]-->
+<!--[if IE 9]><html class="no-js no-svg ie ie9 lt-ie9 lt-ie8" {{ site.language_attributes }}> <![endif]-->
+<!--[if gt IE 9]><!--><html class="no-js no-svg" {{ site.language_attributes }}> <!--<![endif]-->
+  <head>
+    {% block head %}
+    <meta charset="{{ site.charset }}" />
+    <meta name="description" content="{{ site.description }}">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">      
+    {{function('wp_head')}}
+    {% endblock %}
+  </head>
+
+  <body class="{{body_class}}" data-template="{{template|default('base')}}">
+
+    {% block preamble %}
+    <div id="top"></div>
+    <a class="skip-link screen-reader-text" href="#content">{{ _e( 'Skip to content') }}</a>
+    <div id="preload"></div>
+    {% endblock %}
+
+    {% block navbar %}
+    <nav id="navbar" class="navbar" role="navigation">
+
+      <div class="navbar__brand">
+        <div class="container">
+          <div class="navbar__brand__logo">
+            <a href="/" title="{{ site.title }}" rel="home" class="navbar__brand__logo__link">
+              <img class="navbar__brand__logo--h" title="Logo" alt="Logo" src="{{ img }}/logo.jpg">
+            </a>
+          </div>
+          <div class="navbar__primary__menu">
+            {% include "partial/menu.twig" with {'items': menu_primary.get_items} %}
+          </div>
+          <div class="navbar__primary__hamburger">
+            <button class="hamburger hamburger--squeeze" type="button">
+              <span class="hamburger-box"><span class="hamburger-inner"></span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </nav>
+    {% endblock %}
+
+    <section id="content" role="main" class="main">
+      <div class="container">
+        {% if post.thumbnail.src %}
+        <figure class="featured-image" style="background-image:url({{ post.thumbnail.src }});"></figure>
+        {% endif %}
+        {% block content %}
+        <div class="wrapper {{sidebar_class}}">
+            Sorry, no content
+        </div>
+        {% if sidebar %}
+          <aside class="layout-sidebar">
+            {{sidebar}}
+          </aside>
+        {% endif %}
+        {% endblock %}
+      </div>
+    </section>
+
+
+    {% block footer %}
+      {% include 'partial/footer.twig' %}
+    {% endblock %}
+
+    {% block tail %}
+      {{ function('wp_footer') }}
+    {% endblock %}
+    
+  </body>
+</html>

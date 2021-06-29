@@ -1,0 +1,200 @@
+.nf-callout {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.nf-callout * {
+  box-sizing: border-box;
+}
+
+.wp-block-nf-grid .nf-callout {
+  margin-bottom: 0;
+}
+
+  .nf-callout__image {
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* background-position: 50% 60%; */
+    background-position: 50% 50%;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+  }
+  .nf-callout__image::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  .nf-callout.is-color-light .nf-callout__image::after {
+    background: linear-gradient( rgba(28,32,42,0.5),rgba(28,32,42,0.5) );
+  }
+
+  .nf-callout.is-color-dark .nf-callout__image::after {
+    background: linear-gradient( rgba(28,32,42,0.5),rgba(28,32,42,0.5) );
+  }
+
+  .nf-callout.is-color-blue .nf-callout__image::after {
+    background: linear-gradient( rgba(20,60,70,0.7),rgba(20,60,70,0.7) );
+  }
+
+  .nf-callout.is-color-yellow .nf-callout__image::after {
+    background: linear-gradient( rgba(254,191,87,0.8), rgba(254,191,87,0.8) );
+  }
+
+  /*
+  .nf-callout.is-color-light .nf-callout__image::after {
+    background-image: linear-gradient(rgba(254,191,87,0.8),rgba(254,191,87,0.8));
+  }
+  */
+
+
+  .nf-callout__content {
+    position: relative;
+    text-align: center;
+    font-size: 17px;
+    color: #fff;
+    /* padding: 10% 15% 5%; */
+    padding: 35px 50px 15px;
+    height: calc(100% - 50px);
+    height: 100%;
+    z-index: 3;
+    margin: 0 auto;
+    max-width: 594px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .nf-callout.is-color-yellow .nf-callout__content {
+    color: #000;
+  }
+
+  h3.nf-callout__title {
+    color: #fff;
+    font-size: 28px;
+  }
+
+  .nf-callout.is-style-large .nf-callout__title {
+    font-size: 46px;
+  }
+
+  .nf-callout.is-style-large .nf-callout__content {
+    max-width: 700px;
+  }
+
+  .nf-callout.is-style-impact .nf-callout__content {
+    max-width: 350px;
+    padding: 50px; 
+    height: calc(100% - 100px);
+    height: 100%;
+  }
+
+  .nf-callout.is-style-landing .nf-callout__content {
+    max-width: 500px;
+    padding: 100px 40px 20px; 
+    height: calc(100% - 120px);
+    height: 100%;
+  }
+
+  .nf-callout.is-style-impact .nf-callout__title {
+    text-transform: uppercase;
+    font-size: 37px;
+    font-weight: bold;
+  }
+  .nf-callout.is-style-impact .nf-callout__title::first-line {
+    color: rgb(254, 191, 87);
+  }
+
+  .nf-callout.is-style-impact .nf-callout__title::after {
+    content: "";
+    height: 2px;
+    width: 100px;
+    background: #fff;
+    display: block;
+    margin: 10px auto;
+  }
+
+  .nf-callout.is-style-landing .nf-callout__title {
+    font-size: 37px;
+    font-weight: bold;
+  }
+
+  .nf-callout.is-style-landing .nf-callout__title::after {
+    content: "";
+    height: 2px;
+    width: 150px;
+    background: #fff;
+    display: block;
+    margin: 10px auto;
+  }
+
+  h3.nf-callout__title {
+    color: #fff;
+  }
+
+  .nf-callout.is-color-yellow h3.nf-callout__title {
+    color: #000;
+  }
+
+
+.nf-callout__icon {
+  max-height: 84px;
+  margin: 0 auto;
+  display: block;
+}
+
+.nf-callout__button {
+  color: #fff;
+  border: 2px solid #fff;
+  /* padding: 6px 10px; */
+  padding: 6px 30px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 16px;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-block;
+  max-width: 500px;
+  margin: 40px 0 20px;
+}
+
+.nf-callout.is-style-large .nf-callout__button {
+  margin: 50px 0;
+}
+
+.nf-callout.is-color-yellow .nf-callout__button {
+  background: #183c46;
+  border: 0;
+}
+
+.nf-callout__button:hover {
+  background: #fff;
+  color: #183c46;
+}
+
+.nf-callout.is-color-yellow .nf-callout__button:hover {
+  background: #000;
+  color: #fff;
+}
+
+.nf-callout__button textarea {
+  background: transparent;
+  text-transform: uppercase;
+}
+
+.nf-callout.is-color-yellow .nf-callout__button textarea {
+  color: #fff;
+}
+
+.nf-callout__button textarea + textarea {
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  padding: 0 5px;
+  text-transform: none;
+}
+

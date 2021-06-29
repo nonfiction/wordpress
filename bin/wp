@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Ensure all commands are installed
+for cmd in docker bin/get; do
+  if [ -z "$(command -v $cmd)" ]; then
+    echo "Missing command: \"${cmd}\""
+    exit 1
+  fi
+done
+
+# Run wp command on running container
+docker exec $(bin/get container_id srv) wp $@
