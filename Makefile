@@ -36,7 +36,7 @@ webpack: 		; webpack --progress
 
 # Run development server
 up:			; @bin/run up
-down:		; docker -c default stack rm $(shell bin/get app)
+down:			; docker -c default stack rm $(shell bin/get app)
 
 # Switch docker context
 context: 		; @bin/run context
@@ -69,7 +69,7 @@ oneoff:			; docker run -it --rm -v $(shell bin/get uploads):/srv/web/content/upl
 # Initialize website
 init_db:		; @bin/run init_db
 init_wp: 		; @bin/run init_wp
-wait:				; sleep 15
+wait:			; sleep 15
 init: init_db npm composer up wait init_wp 
 
 # Backups are hourly, but make one right now
