@@ -292,7 +292,7 @@ run_init_db() {
     echo
   else
     echo "MySQL: user \"$db_user\" doesn't exist. Creating..."
-    query="CREATE USER '$db_user'@'%' IDENTIFIED WITH mysql_native_password BY '$DB_PASSWORD';"
+    query="CREATE USER '$db_user'@'%' IDENTIFIED WITH mysql_native_password BY '$db_password';"
     echo "> $query"
     mysql -e "$query"
     echo
