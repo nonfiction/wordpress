@@ -7,12 +7,15 @@
 # wordpress.lb1.nonfiction.ca {
 wordpress.lb1.nfweb.ca {
 
+	# reverse_proxy https://wordpress.prod1.nfweb.ca {
   reverse_proxy <%= $(bin/get upstreams); %> {
 
     # User: <%= $(bin/get upstream_user) %>
     # Password: <%= $(bin/get upstream_password) %>
     header_up Authorization "Basic <% echo $(bin/get upstream_user):$(bin/get upstream_password) | base64 -w0 %>"
-    basicauth * bcrypt <%= $(bin/get app); %> 
+    # basicauth * bcrypt <%= $(bin/get app); %> 
+    
+    header_up WWW-Authenticate 'Basic realm="<%= $(bin/get app); %>"'
 
     lb_policy uri_hash
   }
