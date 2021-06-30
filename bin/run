@@ -17,8 +17,6 @@ toggle_context() {
   echo $new_context
 }
 
-# echo_next() { local msg="$@"; printf "\e[0;32m\$ > $msg" && printf "\e[0m\n" }
-
 # Pretty messages
 # echo_color black/on_red Warning message!
 # echo_color prompt/yellow/on_purple This is a prompt
@@ -678,21 +676,21 @@ case $COMMAND in
 
   help | "")
     echo
-    echo "Usage: setup COMMAND"
+    echo "Usage: run COMMAND"
     echo
     echo "  build"
-    echo "  init_db"
     echo "  context"
     echo "  deploy"
+    echo "  help"
+    echo "  init_db"
     echo "  init_wp"
     echo "  public"
-    echo "  pull_image [TAG]"
     echo "  pull_db"
     echo "  pull_files"
+    echo "  pull_image [TAG]"
     echo "  push_db"
     echo "  push_files"
     echo "  up"
-    echo "  help"
     echo ;;
 
   build)           run_build ;;
