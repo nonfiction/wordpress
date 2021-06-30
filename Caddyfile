@@ -12,6 +12,7 @@ wordpress.lb1.nfweb.ca {
     # User: <%= $(bin/get upstream_user) %>
     # Password: <%= $(bin/get upstream_password) %>
     header_up Authorization "Basic <% echo $(bin/get upstream_user):$(bin/get upstream_password) | base64 -w0 %>"
+    basicauth * bcrypt <%= $(bin/get app); %> 
 
     lb_policy uri_hash
   }

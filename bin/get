@@ -45,7 +45,7 @@ get_basic_auth() {
   [ -z $password ] && password="$2"
 
   # Returns name:password hashed with $ doubled for escaping: 
-  echo $(htpasswd -nb $username $password) | sed -e s/\\$/\\$\\$/g
+  echo $(htpasswd -nbB $username $password) | sed -e s/\\$/\\$\\$/g
 
 }
 
