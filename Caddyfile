@@ -4,7 +4,8 @@
 # choose a load balancer.
 #
 
-wordpress.lb1.nonfiction.ca {
+# wordpress.lb1.nonfiction.ca {
+wordpress.lb1.nfweb.ca {
 
   reverse_proxy <%= $(bin/get upstreams); %> {
 
