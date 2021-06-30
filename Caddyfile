@@ -1,7 +1,8 @@
 # 
-# When ready to launch, modify this configuration with the 
-# real domain names. Then, run the command `make public` and 
-# choose a load balancer.
+# When launching, modify this configuration with the real hostname. 
+# Next, run the commands `make build` and `make deploy` so that 
+# Traefik knows to listen for this new hostname.  Finally, run the 
+# command `make public` and choose the load balancer.
 #
 
 # When launching, change this to the real domain name!

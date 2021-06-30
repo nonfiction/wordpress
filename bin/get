@@ -37,11 +37,11 @@ get_basic_auth() {
   [ -z "$2" ] && exit 1
 
   # Get username from environment, or fall back on literal value
-  local username=$(get_env $1)
+  local username=$(get_env $(echo $1 | tr - _))
   [ -z $username ] && username="$1"
 
   # Get password from environment, or fall back on literal value
-  local password=$(get_env $2)
+  local password=$(get_env $(echo $2 | tr - _))
   [ -z $password ] && password="$2"
 
   # Returns name:password hashed with $ doubled for escaping: 
