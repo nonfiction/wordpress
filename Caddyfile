@@ -10,6 +10,8 @@ wordpress.lb1.nfweb.ca {
 	# reverse_proxy https://wordpress.prod1.nfweb.ca {
   reverse_proxy <%= $(bin/get upstreams); %> {
 
+    header_up Host "<%= $(bin/get host); %>"
+
     # User: <%= $(bin/get upstream_user) %>
     # Password: <%= $(bin/get upstream_password) %>
     header_up Authorization "Basic <% echo $(bin/get upstream_user):$(bin/get upstream_password) | base64 -w0 %>"
