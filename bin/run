@@ -228,7 +228,7 @@ run_lb() {
   fi
 
   echo_info "Which load balancer is \"$public_host\" pointing to?"
-  local options=( $(docker context ls | awk '/ssh/ { print $1 }' | xargs) )
+  local options=( $(docker context ls | awk '/ lb / { print $1 }' | xargs) )
   menu_select "${options[@]}"
   local context="${options[$?]}"
   local remote="root@$context.$domain"
@@ -383,6 +383,12 @@ run_deploy() {
   local context=$1
   [ -z "$context" ] && context=$(bin/get context)
 
+  if [ "lb" = "$(bin/get context --role)" ]; then
+    echo_stop "Your docker context is set to \"$context\"."
+    echo
+    exit 1
+  fi
+
   echo_next "Deploying to $(bin/get swarm)"
 
   echo_color green "$image"
@@ -471,7 +477,29 @@ run_init_wp() {
   bin/wp rewrite structure /%postname%/
 
   # Update Caddyfile with placeholder host
-  sed -i "s/wordpress\.lb1\.nonfiction.ca/$(bin/get app).lb1.nonfiction.ca/g" Caddyfile
+  local lb_list="$(bin/get contexts --lb)"
+  local lb_count="$(echo $lb_list | wc -w)"
+
+  # Don't bother if this is already done, or there are no lb contexts
+  if [ "$lb_count" != "0" ] && [ ! -z "$(grep __PLACEHOLDER_HOST__ Caddyfile)" ]; then
+
+    local context
+
+    # Use only lb context
+    if [ "$lb_count" = "1" ]; then
+      context="$lb_list"
+
+    # Choose from list of lb contexts
+    else
+      echo_info "Which load balancer will you use?"
+      local options=( $lb_list )
+      menu_select "${options[@]}"
+      context="${options[$?]}"
+    fi
+
+    sed -i "s/__PLACEHOLDER_HOST__/$(bin/get app).lb.$context.$(bin/get domain)/g" Caddyfile
+
+  fi
 
   # Print login details
   echo

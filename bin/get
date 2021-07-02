@@ -64,23 +64,39 @@ get_container_id() {
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# get_context
+# get_context [--role]
 # Current docker context (default is local docker.sock)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 get_context() {
+
+  local context=$(docker context inspect --format "{{lower .Name}}")
   
-  docker context inspect --format "{{lower .Name}}"
+  # If --role, show current context role
+  if [[ "$@" == *"--role"* ]] || [[ "$@" == *"-r"* ]]; then
+    docker context ls | awk "/$context */ { print \$3 }"
+
+  # Otherwise, show current context name
+  else
+    echo $context
+  fi
 
 }
 
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# get_contexts
-# List docker contexts
+# get_contexts [--lb]
+# List docker contexts (skipping lb swarms)
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 get_contexts() {
   
-  docker context ls --format '{{ lower .Name }}' | xargs
+  # If --lb, show load balancer contects
+  if [[ "$@" == *"--lb"* ]] || [[ "$@" == *"-l"* ]]; then
+    docker context ls | awk '/ lb / {if (NR!=1) print $1}' | xargs
+
+  # Otherwise, filter them out
+  else
+    docker context ls | awk '!/ lb / {if (NR!=1) print $1}' | xargs
+  fi
 
 }
  
@@ -248,6 +264,10 @@ get_host() {
   if [[ "$@" == *"--public"* ]] || [[ "$@" == *"-p"* ]]; then
     [ -e Caddyfile ] || exit 1
     host=$(grep -Ev '^#' Caddyfile | xargs | awk '{print $1}')
+    [ "$host" = "__PLACEHOLDER_HOST__" ] && host=""
+    host=$(echo ${host/http:\/\//})
+    host=$(echo ${host/https:\/\//})
+    host=$(echo $host | awk -F: '{ print $1}')
   fi
 
   # Otherwise, get host from app and swarm (based on docker context)
@@ -618,8 +638,8 @@ case $KEY in
     echo "  app"
     echo "  basic_auth [USERNAME] [PASSWORD]"
     echo "  container_id [SERVICE]"
-    echo "  context"
-    echo "  contexts"
+    echo "  context [--role]"
+    echo "  contexts [--lb]"
     echo "  csv"
     echo "  db_host"
     echo "  db_name [--local]"
@@ -649,8 +669,8 @@ case $KEY in
   app)                get_app ;;
   basic_auth)         get_basic_auth $ARGS;;
   container_id)       get_container_id $ARGS ;;
-  context)            get_context ;;
-  contexts)           get_contexts ;;
+  context)            get_context $ARGS;;
+  contexts)           get_contexts $ARGS;;
   csv)                get_csv $ARGS ;;
   db_host)            get_db_host ;;
   db_name)            get_db_name $ARGS ;;
