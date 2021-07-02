@@ -7,7 +7,7 @@
 
 # When launching, change this to the real domain name!
 # __P_LACEHOLDER_HOST__ {
-__PLACEHOLDER_HOST__ {
+wordpress.lb.prod1.nfweb.ca {
 
   reverse_proxy <%= $(bin/get upstreams); %> {
 
