@@ -11,7 +11,7 @@ all:
 	@echo -e "\tbuild \t\t -- Build and push tagged image"
 	@echo -e "\tartifact \t -- Install depedenencies before building"
 	@echo -e "\tdeploy \t\t -- Deploy a tagged image in the current docker context"
-	@echo -e "\tpublic \t\t -- Launch this site on the load balancer"
+	@echo -e "\tlb \t\t -- Launch this site on the load balancer"
 	@echo -e "\tpush \t\t -- Push db/files to current docker context"
 	@echo -e "\tpull \t\t -- Pull db/files from current docker context"
 	@echo -e "\tshell \t\t -- Launch a bash shell to explore"
@@ -51,7 +51,7 @@ deploy:			; @bin/run deploy
 artifact: webpack composer build;
 
 # Launch this site on the load balancer
-public:			; @bin/run public
+lb:			; @bin/run lb
 
 # Push/pull data to/from current docker context
 push_db:		; @bin/run push_db
