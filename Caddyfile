@@ -6,7 +6,8 @@
 #
 
 # When launching, change this to the real domain name!
-wordpress.lb1.nonfiction.ca {
+# wordpress.lb1.nonfiction.ca {
+wordpress.lb.caddy1.nfweb.ca {
 
   reverse_proxy <%= $(bin/get upstreams); %> {
 
