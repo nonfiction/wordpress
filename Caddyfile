@@ -15,7 +15,8 @@ __PLACEHOLDER_HOST__ {
     # User: <%= $(bin/get upstream_user) %>
     # Password: <%= $(bin/get upstream_password) %>
     header_up Authorization "Basic <% echo -n $(bin/get upstream_user):$(bin/get upstream_password) | base64 -w0 %>"
-
+		header_up X-Client-IP {remote_host}
+    header_down X-Powered-by "nonfiction studios"
   }
 
 }
