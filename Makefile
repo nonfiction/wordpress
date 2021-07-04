@@ -56,11 +56,11 @@ lb:			; @bin/run lb
 # Push/pull data to/from current docker context
 push_db:		; @bin/run push_db
 pull_db:		; @bin/run pull_db
-push_files: 		; @bin/run push_files
-pull_files: 		; @bin/run pull_files
+push_uploads: 		; @bin/run push_uploads
+pull_uploads: 		; @bin/run pull_uploads
 
-push: push_files push_db 
-pull: pull_files pull_db 
+push: push_uploads push_db 
+pull: pull_uploads pull_db 
 
 # Launch a bash shell to exlore
 shell:			; docker exec -it $(shell bin/get container_id) bash
