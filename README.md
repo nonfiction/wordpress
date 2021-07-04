@@ -14,9 +14,9 @@ context     -- Switch docker context
 build       -- Build and push tagged image
 artifact    -- Install depedenencies before building
 deploy      -- Deploy a tagged image in the current docker context
-public      -- Launch this site on the load balancer
-push        -- Push db/files to current docker context
-pull        -- Pull db/files from current docker context
+lb          -- Launch this site on the load balancer
+push        -- Push db/uploads to current docker context
+pull        -- Pull db/uploads from current docker context
 shell       -- Launch a bash shell to explore
 backup      -- Backups are hourly, but make one right now
 init        -- Initialize website for development
