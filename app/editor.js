@@ -22,10 +22,10 @@ nf.registerBlockType = function (json = {}, override = {}) {
 }
 
 // Import block-related index.js files
-// app/*/index.js
+// app/blocks/*/index.js
 // app/*/blocks/*/index.js
 function importAll(r) { r.keys().forEach(r) }
-importAll(require.context(__dirname, true, /^\.\/[\w\-]+\/index\.js$/));
+importAll(require.context(__dirname, true, /^\.\/blocks\/[\w\-]+\/index\.js$/));
 importAll(require.context(__dirname, true, /^\.\/[\w\-]+\/blocks\/[\w\-]+\/index\.js$/));
 
 // Custom scripting below

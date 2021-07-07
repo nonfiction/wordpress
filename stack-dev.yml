@@ -97,6 +97,8 @@ services:
 
     environment:
       HOST: "<%= $(bin/get host) %>"
+      UPSTREAM_USER: "<%= $(bin/get upstream_user) %>"
+      UPSTREAM_PASSWORD: "<%= $(bin/get upstream_password) %>"
       DB_HOST: "<%= $(bin/get DB_HOST) %>"
       DB_PORT: "<%= $(bin/get DB_PORT) %>"
       DB_USER: "<%= $(bin/get db_user) %>"
