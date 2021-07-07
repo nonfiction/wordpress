@@ -7,7 +7,7 @@ App::init( ROOT_DIR );
 App::import([ 
     'config/wp/*.php',           // wp tweaks
     'app/*/index.php',           // post types
-    'app/blocks/*.php',          // block types
+    'app/blocks/*/index.php',    // block types
     'app/*/blocks/*/index.php',  // block types nested under post types
 ]);
 
