@@ -35,8 +35,8 @@ drop-in /srv/web/content/plugins/query-monitor/wp-content/db.php
 # Symlink theme folder to where it belongs
 rm -rf /srv/web/content/themes/theme && ln -sf /srv/theme /srv/web/content/themes/theme
 
-# Make sure upload directory is writeable
-chown -R www-data:www-data /srv/web/content/uploads
+# Make sure upload/cache/settings directories are writeable
+chown -R www-data:www-data /srv/web/content/uploads /srv/web/content/cache /srv/web/content/settings
 
 # Assets in the /srv/app/layouts/img directory are web public at /assets/img
 rm -f /srv/web/assets/img && ln -sf /srv/app/layouts/img /srv/web/assets/img
