@@ -70,10 +70,25 @@ Config::define('DB_CHARSET', 'utf8mb4');
 Config::define('DB_COLLATE', '');
 $table_prefix = env('DB_PREFIX') ?: 'wp_';
 
+// Reddis Cache settings
+global $redis_server;
+$redis_server = [
+  'host' => env('CACHE_HOST') ?: '127.0.0.1',
+  'port' => env('CACHE_PORT') ?: '6379',
+  'auth' => env('CACHE_PASSWORD') ?: '',
+  'ssl'  => [ 'verify_peer' => true, ],
+];
+
+Config::define('CACHE_HOST', $redis_server['host']);
+Config::define('CACHE_PORT', $redis_server['port']);
+Config::define('CACHE_PASSWORD', $redis_server['auth']);
+
+
 // Authentication Unique Keys and Salts
 foreach([ 
   'AUTH_KEY', 'SECURE_AUTH_KEY', 'LOGGED_IN_KEY', 'NONCE_KEY', 
   'AUTH_SALT', 'SECURE_AUTH_SALT', 'LOGGED_IN_SALT', 'NONCE_SALT', 
+  'WP_CACHE_KEY_SALT',
 ] as $key) {
   
   // If a key defined in the env, use that value
@@ -97,10 +112,14 @@ Config::define('DISALLOW_FILE_MODS', true);
 // Query Monitor Settings
 Config::define('QM_DARK_MODE', env('QM_DARK_MODE') ?: true);
 Config::define('QM_ENABLE_CAPS_PANEL', env('QM_ENABLE_CAPS_PANEL') ?: true);
+Config::define('QM_DB_SYMLINK', env('QM_DB_SYMLINK') ?: false);
 
 // https://querymonitor.com/blog/2018/07/silencing-errors-from-plugins-and-themes/
 Config::define('QM_DISABLE_ERROR_HANDLER', env('QM_DISABLE_ERROR_HANDLER') ?: false);
 
+// Enable caching
+Config::define('WP_CACHE', env('WP_CACHE') ?: true);
+Config::define('FS_METHOD', 'direct');
 
 // Debugging Settings
 Config::define('WP_DEBUG_DISPLAY', false);

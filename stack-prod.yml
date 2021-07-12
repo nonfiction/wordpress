@@ -35,6 +35,10 @@ services:
       DB_USER: "<%= $(bin/get db_user) %>"
       DB_PASSWORD: "<%= $(bin/get db_password) %>"
 
+      CACHE_HOST: "<%= $(bin/get CACHE_HOST) %>"
+      CACHE_PORT: "<%= $(bin/get CACHE_PORT) %>"
+      CACHE_PASSWORD: "<%= $(bin/get CACHE_PASSWORD) %>"
+
       SMTP_HOST: "<%= $(bin/get SMTP_HOST) %>"
       SMTP_PORT: "<%= $(bin/get SMTP_PORT) %>"
       SMTP_USER: "<%= $(bin/get SMTP_USER) %>"
@@ -42,10 +46,16 @@ services:
 
     volumes:
       - <%= $(bin/get uploads) %>:/srv/web/content/uploads
+      - <%= $(bin/get settings) %>:/srv/web/content/settings
+      - <%= $(bin/get cache) %>:/srv/web/content/cache
       - <%= $(bin/get dump) %>:/srv/dump.sql
 
     networks:
       - proxy
+
+    logging:
+      options:
+        max-size: "1m"
 
   # Cron
   cron:
@@ -73,6 +83,10 @@ services:
 
     networks:
       - proxy
+
+    logging:
+      options:
+        max-size: "1m"
 
 networks:
   proxy:

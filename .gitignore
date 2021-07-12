@@ -38,6 +38,17 @@ web/content/themes/*
 web/content/uploads/*
 !web/content/uploads/.gitkeep
 
+# WP cache
+web/content/cache/*
+!web/content/cache/.gitkeep
+web/content/settings/*
+!web/content/settings/.gitkeep
+
+# Drop-in plugins
+web/content/object-cache.php
+web/content/advanced-cache.php
+web/content/db.php
+
 # Logs
 web/content/debug.log
 
