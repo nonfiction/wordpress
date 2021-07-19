@@ -17,7 +17,7 @@ App::import([
 // "story/tease.twig"
 // "story/blocks/story-heading/single.twig"
 App::views([ 
-    'app/layouts',  
+    'app/views',  
     'app' 
 ]);
 

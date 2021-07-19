@@ -34,7 +34,7 @@ class App {
 
     // Add to settings menu: Reinitalize 
     add_action('admin_menu', function() {
-      add_submenu_page( 'options-general.php', 'Reactivate', 'Reactivate', 'manage_options', 'reactivate', [ '\nf\Site', 'reactivate' ], 100);
+      add_submenu_page( 'options-general.php', 'Reactivate', 'Reactivate', 'manage_options', 'reactivate', [ '\nf\App', 'reactivate' ], 100);
     }, 100);
 
     // Automatically run reinitalize at least once

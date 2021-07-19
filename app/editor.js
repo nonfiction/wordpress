@@ -30,3 +30,6 @@ importAll(require.context(__dirname, true, /^\.\/[\w\-]+\/blocks\/[\w\-]+\/index
 
 // Custom scripting below
 //
+
+// disable welcome guide
+wp.data.select( "core/edit-post" ).isFeatureActive( "welcomeGuide" ) && wp.data.dispatch( "core/edit-post" ).toggleFeature( "welcomeGuide" )
