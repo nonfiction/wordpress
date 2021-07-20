@@ -32,7 +32,7 @@
     "nielsdeblaauw/query-monitor-twig-profile": "^1.0",
     "oscarotero/env": "^2.1.0",
     "roots/bedrock-autoloader": "^1.0",
-    "roots/wordpress": "^5.6",
+    "roots/wordpress": "^5.8",
     "roots/wp-config": "1.0.0",
     "roots/wp-password-bcrypt": "1.0.0",
     "soberwp/intervention": "^1.3",

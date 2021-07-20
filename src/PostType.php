@@ -313,22 +313,29 @@ class PostType extends \Timber\Post {
     $names = static::$names;
     $props = static::$props;
 
-    add_filter( 'allowed_block_types', function( $allowed_block_types, $post ) use( $names, $props ) {
-      if ( $post->post_type === $names['key_single'] ) {
+    add_filter( 'allowed_block_types_all', function( $allowed_block_types, $editor_context ) use( $names, $props ) {
 
-        if (is_array($props['blocks'])) {
-          $types = [];
-          foreach($props['blocks'] as $type) {
-            $types[] = $type;
-          };
-          return $types;
+      if ( ! empty( $editor_context->post ) ) {
 
-        } else {
-          return true;
+        $post = $editor_context->post;
+        if ( $post->post_type === $names['key_single'] ) {
+
+          if (is_array($props['blocks'])) {
+            $types = [];
+            foreach($props['blocks'] as $type) {
+              $types[] = $type;
+            };
+            return $types;
+
+          } else {
+            return true;
+          }
+
         }
-
       }
+
       return $allowed_block_types;
+
     }, 10, 2 );
 
   }
@@ -336,10 +343,13 @@ class PostType extends \Timber\Post {
   // Add a block category named after this post type
   private static function register_block_categories() {
     $names = static::$names;
-    add_filter( 'block_categories', function( $categories, $post ) use( $names ) {
-      return array_merge( $categories, [
-        [ 'slug' => $names['slug_single'], 'title' => $names['label_single'] ],
-      ]);
+    add_filter( 'block_categories_all', function( $block_categories, $editor_context ) use( $names ) {
+      if ( ! empty( $editor_context->post ) ) {
+        $block_categories = array_merge( $block_categories, [
+          [ 'slug' => $names['slug_single'], 'title' => $names['label_single'] ],
+        ]);
+      }
+      return $block_categories;
     }, 10, 2);
   }
 
