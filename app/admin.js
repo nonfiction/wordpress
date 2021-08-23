@@ -1,7 +1,7 @@
 // This is contains JavaScript for admin pages
 // WP hook: admin_enqueue_scripts (in footer)
 
-import "./views/css/base.css";
+import "./base.css";
 import "../config/wp/admin.js";
 
 if (typeof window.disable_comments == "undefined") {

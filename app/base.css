@@ -1,7 +1,7 @@
-@import "normalize.css";
+@import "bootstrap-reboot/reboot.css";
 
 /* Animate everything */
-/* * { transition: all 0.1s ease; } */
+* { transition: all 0.1s ease; }
 
 :root {
 

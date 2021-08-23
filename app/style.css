@@ -1,0 +1,10 @@
+/* Import npm module styles */
+@import "hamburgers/dist/hamburgers.css";
+/* @import "slick-carousel/slick/slick.css"; */
+/* @import "bootstrap/dist/css/bootstrap.css"; */
+
+/* Import styles */
+@import "./views/css/layout.css";
+@import "./views/css/navbar.css";
+@import "./views/css/content.css";
+@import "./views/css/footer.css";

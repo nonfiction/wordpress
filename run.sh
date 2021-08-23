@@ -28,7 +28,7 @@ drop-in() {
 }
 
 # WP Redis, Cache Enabler, and Query Monitor
-drop-in /srv/vendor/humanmade/wp-redis-predis-client/object-cache.php
+# drop-in /srv/vendor/humanmade/wp-redis-predis-client/object-cache.php
 drop-in /srv/web/content/plugins/cache-enabler/advanced-cache.php
 drop-in /srv/web/content/plugins/query-monitor/wp-content/db.php
 
