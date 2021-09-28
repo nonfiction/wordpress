@@ -26,7 +26,7 @@ services:
 
         <% NAME="$(bin/get app)" %>
         traefik.http.routers.<%= $NAME -%>.entrypoints: "websecure"
-        traefik.http.routers.<%= $NAME -%>.rule: "Host(`<%= $(bin/get host) %>`,`bob.js2.nfweb.ca`,`www-bob.js2.nfweb.ca`)"
+        traefik.http.routers.<%= $NAME -%>.rule: "Host(`<%= $(bin/get host) %>`)"
         traefik.http.routers.<%= $NAME -%>.tls.certresolver: "resolver-dns"
         traefik.http.routers.<%= $NAME -%>.tls.domains[0].main: "<%= $(bin/get swarm) %>"
         traefik.http.routers.<%= $NAME -%>.tls.domains[0].sans: "*.<%= $(bin/get swarm) %>"
@@ -34,7 +34,8 @@ services:
         traefik.http.services.<%= $NAME -%>.loadbalancer.server.scheme: "https"
 
     environment:
-      UPSTREAM: "https://<%= $(bin/get app) %>_srv" # used by webpack.config.js
+      # used by webpack.config.js
+      UPSTREAM: "https://<%= $(bin/get app) %>_srv"
 
     volumes:
       - <%= $(pwd) %>/webpack.config.js:/srv/webpack.config.js
