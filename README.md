@@ -14,7 +14,6 @@ context     -- Switch docker context
 build       -- Build and push tagged image
 artifact    -- Install depedenencies before building
 deploy      -- Deploy a tagged image in the current docker context
-lb          -- Launch this site on the load balancer
 push        -- Push db/uploads to current docker context
 pull        -- Pull db/uploads from current docker context
 shell       -- Launch a bash shell to explore
@@ -37,5 +36,4 @@ init        -- Initialize website for development
 - [nonfiction/wordpress-base](https://github.com/nonfiction/wordpress-base)
 - [nonfiction/webpack](https://github.com/nonfiction/webpack)
 - [nonfiction/platform](https://github.com/nonfiction/platform)
-- [nonfiction/traefik](https://github.com/nonfiction/traefik)
 - [nonfiction/workspace](https://github.com/nonfiction/workspace)

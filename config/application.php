@@ -70,25 +70,15 @@ Config::define('DB_CHARSET', 'utf8mb4');
 Config::define('DB_COLLATE', '');
 $table_prefix = env('DB_PREFIX') ?: 'wp_';
 
+
 // Reddis Cache settings
-global $redis_server;
-$redis_server = [
-  'host' => env('CACHE_HOST') ?: '127.0.0.1',
-  'port' => env('CACHE_PORT') ?: '6379',
-  'auth' => env('CACHE_PASSWORD') ?: '',
-  'ssl'  => [ 'verify_peer' => true, ],
-];
-
-Config::define('CACHE_HOST', $redis_server['host']);
-Config::define('CACHE_PORT', $redis_server['port']);
-Config::define('CACHE_PASSWORD', $redis_server['auth']);
-
+// global $redis_server;
+$redis_server = [ 'host' => 'redis' ];
 
 // Authentication Unique Keys and Salts
 foreach([ 
   'AUTH_KEY', 'SECURE_AUTH_KEY', 'LOGGED_IN_KEY', 'NONCE_KEY', 
   'AUTH_SALT', 'SECURE_AUTH_SALT', 'LOGGED_IN_SALT', 'NONCE_SALT', 
-  'WP_CACHE_KEY_SALT',
 ] as $key) {
   
   // If a key defined in the env, use that value

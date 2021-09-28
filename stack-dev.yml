@@ -12,6 +12,11 @@ services:
       placement:
         constraints: [node.role == manager]
 
+      resources:
+        limits:
+          cpus: '0.7'
+          memory: 500M
+
       restart_policy:
         condition: on-failure
 
@@ -19,15 +24,17 @@ services:
         traefik.enable: "true"
         traefik.docker.network: "proxy"
 
-        traefik.http.services.<%= $(bin/get app) %>.loadbalancer.server.port: "443"
-        traefik.http.services.<%= $(bin/get app) %>.loadbalancer.server.scheme: "https"
-
-        traefik.http.routers.<%= $(bin/get app) %>.rule: "Host(<%= $(bin/get csv $(bin/get hosts)) %>)"
-        traefik.http.routers.<%= $(bin/get app) %>.entrypoints: "websecure"
-        traefik.http.routers.<%= $(bin/get app) %>.tls.certresolver: "digitalocean"
+        <% NAME="$(bin/get app)" %>
+        traefik.http.routers.<%= $NAME -%>.entrypoints: "websecure"
+        traefik.http.routers.<%= $NAME -%>.rule: "Host(`<%= $(bin/get host) %>`,`bob.js2.nfweb.ca`,`www-bob.js2.nfweb.ca`)"
+        traefik.http.routers.<%= $NAME -%>.tls.certresolver: "resolver-dns"
+        traefik.http.routers.<%= $NAME -%>.tls.domains[0].main: "<%= $(bin/get swarm) %>"
+        traefik.http.routers.<%= $NAME -%>.tls.domains[0].sans: "*.<%= $(bin/get swarm) %>"
+        traefik.http.services.<%= $NAME -%>.loadbalancer.server.port: "443"
+        traefik.http.services.<%= $NAME -%>.loadbalancer.server.scheme: "https"
 
     environment:
-      UPSTREAM: "https://<%= $(bin/get app) %>_srv"
+      UPSTREAM: "https://<%= $(bin/get app) %>_srv" # used by webpack.config.js
 
     volumes:
       - <%= $(pwd) %>/webpack.config.js:/srv/webpack.config.js
@@ -52,6 +59,11 @@ services:
       placement:
         constraints: [node.role == manager]
 
+      resources:
+        limits:
+          cpus: '0.7'
+          memory: 500M
+
       restart_policy:
         condition: on-failure
 
@@ -63,10 +75,6 @@ services:
       DB_NAME: "<%= $(bin/get db_name) %>"
       DB_USER: "<%= $(bin/get db_user) %>"
       DB_PASSWORD: "<%= $(bin/get db_password) %>"
-
-      CACHE_HOST: "<%= $(bin/get CACHE_HOST) %>"
-      CACHE_PORT: "<%= $(bin/get CACHE_PORT) %>"
-      CACHE_PASSWORD: "<%= $(bin/get CACHE_PASSWORD) %>"
 
       SMTP_HOST: "<%= $(bin/get SMTP_HOST) %>"
       SMTP_PORT: "<%= $(bin/get SMTP_PORT) %>"
@@ -84,13 +92,16 @@ services:
       - <%= $(pwd) %>/theme:/srv/theme
       - <%= $(pwd) %>/vendor:/srv/vendor
       - <%= $(pwd) %>/web:/srv/web
+      - <%= $(pwd) %>/web/content/advanced-cache.php:/srv/web/content/advanced-cache.php:ro
+      - <%= $(pwd) %>/web/content/object-cache.php:/srv/web/content/object-cache.php:ro
+      - <%= $(pwd) %>/web/content/db.php:/srv/web/content/db.php:ro
 
     networks:
       - backend
 
   # Cron
   cron:
-    image: nonfiction/wordpress-cron:v1
+    image: nonfiction/wordpress-cron:v2
 
     deploy:
       mode: replicated
@@ -98,13 +109,18 @@ services:
       placement:
         constraints: [node.role == manager]
 
+      resources:
+        limits:
+          cpus: '0.1'
+          memory: 20M
+
       restart_policy:
         condition: on-failure
 
     environment:
       HOST: "<%= $(bin/get host) %>"
-      UPSTREAM_USER: "<%= $(bin/get upstream_user) %>"
-      UPSTREAM_PASSWORD: "<%= $(bin/get upstream_password) %>"
+      HOST_USER: "<%= $(bin/get host_user) %>"
+      HOST_PASSWORD: "<%= $(bin/get host_password) %>"
       DB_HOST: "<%= $(bin/get DB_HOST) %>"
       DB_PORT: "<%= $(bin/get DB_PORT) %>"
       DB_USER: "<%= $(bin/get db_user) %>"
@@ -116,6 +132,32 @@ services:
 
     networks:
       - proxy
+
+
+  # Object Cache
+  redis:
+    image: redis:alpine
+
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+
+    command:
+      - redis-server
+      - --databases 1
+      - --maxmemory 50mb
+      - --maxmemory-policy allkeys-lru
+
+    networks:
+      - backend
+
 
 networks:
   backend:

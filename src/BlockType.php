@@ -103,7 +103,7 @@ class BlockType {
 
 
   protected static function register_post_meta() {
-    do_action( 'qm/debug', static::$props['meta'] );
+    // do_action( 'qm/debug', static::$props['meta'] );
     foreach(static::$props['meta'] as $meta_args) {
 
       $post_type = $meta_args['post_type'] ?? '';

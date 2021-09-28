@@ -34,14 +34,14 @@ class App {
 
     // Add to settings menu: Reinitalize 
     add_action('admin_menu', function() {
-      add_submenu_page( 'options-general.php', 'Reactivate', 'Reactivate', 'manage_options', 'reactivate', [ '\nf\App', 'reactivate' ], 100);
+      add_submenu_page( 'options-general.php', 'Flush', 'Flush', 'manage_options', 'flush', [ '\nf\App', 'reflush' ], 100);
     }, 100);
 
     // Automatically run reinitalize at least once
     add_action('init', function() {
       if ( is_blog_installed() ) {
-        if ( '1' !== get_option( 'nf_activated') ) {
-          static::activate();
+        if ( '1' !== get_option( 'nf_flushed') ) {
+          static::flush();
         }
       }
     });
@@ -75,21 +75,25 @@ class App {
     Timber::$locations = array_map(fn($d) => str_replace( '//', '/', $path .'/'. $d ), $locations);     
   }
 
-  public static function activate( $force = false ) {
+  public static function flush( $force = false ) {
 
     // Mark that this has been automatically done once 
-    update_option( 'nf_activated', '1' );
+    update_option( 'nf_flushed', '1' );
 
     // Flush post types and reset capablities
     PostType::activate_all();
 
     // Configure Admin user color setting
     wp_update_user( [ 'ID' => 1, 'admin_color' => 'midnight' ] );
+
+    // Flush object cache
+    wp_cache_flush();
+
   }
 
-  public static function reactivate() {
-    static::activate();
-    echo "<h1>Reactivate</h1>";
+  public static function reflush() {
+    static::flush();
+    echo "<h1>Flush</h1>";
     echo "<p>...done!</p>";
   }
 

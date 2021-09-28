@@ -7,9 +7,6 @@ export DB_HOST
 export DB_USER
 export DB_PASSWORD
 export DB_NAME
-export CACHE_HOST
-export CACHE_PORT
-export CACHE_PASSWORD
 export SMTP_HOST
 export SMTP_PORT
 export SMTP_USER
@@ -21,16 +18,13 @@ esh /etc/msmtprc.esh > /etc/msmtprc
 # Symlink PageSpeed config
 ln -sf /srv/config/pagespeed.conf /etc/apache2/mods-enabled/pagespeed.conf
 
-# Install drop-in plugin
-drop-in() {
-  rm -f /srv/web/content/$(basename $1)
-  [ -e $1 ] && cp -f $1 /srv/web/content/$(basename $1)
-}
+# Protect drop-in plugins from being modified
+chown root:root /srv/web/content/object-cache.php
+chown root:root /srv/web/content/advanced-cache.php
+chown root:root /srv/web/content/db.php
 
-# WP Redis, Cache Enabler, and Query Monitor
-# drop-in /srv/vendor/humanmade/wp-redis-predis-client/object-cache.php
-drop-in /srv/web/content/plugins/cache-enabler/advanced-cache.php
-drop-in /srv/web/content/plugins/query-monitor/wp-content/db.php
+# Ensure the cache is cleared
+/usr/local/bin/wp cache flush
 
 # Symlink theme folder to where it belongs
 rm -rf /srv/web/content/themes/theme && ln -sf /srv/theme /srv/web/content/themes/theme

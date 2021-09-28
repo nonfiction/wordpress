@@ -45,9 +45,9 @@ web/content/settings/*
 !web/content/settings/.gitkeep
 
 # Drop-in plugins
-web/content/object-cache.php
-web/content/advanced-cache.php
-web/content/db.php
+# web/content/object-cache.php
+# web/content/advanced-cache.php
+# web/content/db.php
 
 # Logs
 web/content/debug.log
