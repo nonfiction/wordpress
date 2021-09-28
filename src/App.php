@@ -139,6 +139,66 @@ function add_intervention( $key, ...$args ) {
   });
 }
 
+/**
+ * If you have a callback you want to run on multiple actions, pass them here.
+ *
+ * @param array $tags
+ * @param callable $function_to_add
+ * @param int $priority
+ * @param int $accepted_args
+ */
+function add_actions( array $tags, $function_to_add, $priority = 10, $accepted_args = 1 ) {
+  foreach ( $tags as $tag ) {
+    add_action( $tag, $function_to_add, $priority, $accepted_args );
+  }
+}
+
+function add_ajax_action( $tag, $function_to_add, $priority = 10, $accepted_args = 1 ) {
+  add_action( "wp_ajax_${tag}", $function_to_add, $priority, $accepted_args );
+  add_action( "wp_ajax_nopriv_${tag}", $function_to_add, $priority, $accepted_args );
+}
+
+
+function sanitize_param($param) {
+
+  // Get recursive in arrays
+  if ( is_array($param) ) { 
+    foreach($param as $key => $val) {
+      $param[$key] = sanitize_param($val);
+    }
+
+  } else {
+
+    // Sanitize the input as a string
+    $param = sanitize_text_field( $param );
+
+    // Empty strings or the word "null" are null
+    if ( ( $param == '' ) || ( strtolower($param) == 'null' ) ) {
+      $param = null;
+
+    // The word "false" becomes boolean
+    } elseif ( strtolower($param) == 'false' ){
+      $param = false;
+
+    // The word "true" becomes boolean
+    } elseif ( strtolower($param) == 'true' ) {
+      $param = true;
+
+    // String that look like a number become one
+    } elseif ( is_numeric($param) ) { 
+      $param = $param + 0; 
+    }
+
+  }
+
+  return $param;
+
+}
+
+// Get value from $_REQUEST by key and cast as intended type
+function get_param($name, $default = null) {
+  return sanitize_param( $_REQUEST[$name] ?? $default );
+}
 
 // Read a json file and return an associative array
 function import( $path ) {
@@ -153,6 +213,66 @@ function import( $path ) {
   }
 
   return [];
+}
+
+
+// return map( $results, fn($id, $body) => [ $id => new Traveller($body) ] );
+// ...or...
+// return map( $results, function( $id, $body ) {
+//   return [ $id => new Traveller( $body ) ];
+// } );
+function map(array $list, callable $cb, $group_by = false) {
+
+  $all = [];
+  foreach (($list ?? []) as $key => $val) {
+
+    // Try to find id/key within $val, fallback on $key
+    $id = $val['id'] ?? $val['_id'] ?? $val['key'] ?? $val['_key'] ?? $key;
+
+    // Get pair from callback
+    $pair = $cb( $id, $val ) ?? [ $key => $val ];
+    if (!$pair) continue;
+    $pair_key = array_key_first( $pair );
+
+    // Optionally group pairs by one of the keys
+    if ($group_by) {
+      $group = $val[$group_by];
+      $all[$group] ??= [];
+      $all[$group][$pair_key] = $pair[$pair_key];
+
+    // Otherwise, just return associative array organized by pair's key
+    } else {
+      $all[$pair_key] = $pair[$pair_key];
+    }
+
+  }
+  return $all;
+
+}
+
+
+// Recursively change all keys from camelCase to camel_case
+function underscore_keys( $old = [] ) {
+  if ( ! is_array($old) ) return $old;
+  $new = [];
+  foreach( $old as $key => $val ) {
+    $val = ( is_array($val) ) ? underscore_keys( $val ) : $val;
+    $key = ( is_numeric($key) ) ? $key : underscore( $key );
+    $new[$key] = $val;
+  }
+  return $new;
+}
+
+
+// Similar to empty() but anything numeric (including 0) is not empty
+function is_empty( $value = false ) {
+  if ( is_numeric($value) ) return false;
+  if ( empty($value) ) return true;
+  return false;
+}
+
+function isnt_empty( $value = false ) {
+  return (! is_empty($value) );
 }
 
 // Merge two json files or arrays together

@@ -65,7 +65,7 @@ services:
 
         # Domain redirections
         # for DOMAIN in "oldsite.com" "retiredsite.com"; do
-        <% for DOMAIN in "oldsite.com" "oldsite2.com"; do -%>
+        <% for DOMAIN in ""; do -%>
         <% if [ ! -z "$DOMAIN" ]; then -%>
         <% NAME="$(echo $MAIN_DOMAIN.$DOMAIN | tr . -)" -%>
         <% MIDDLE="$(echo $MAIN_DOMAIN.$DOMAIN | tr . -)-redirect" %>
