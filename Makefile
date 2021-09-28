@@ -32,7 +32,7 @@ composer:		; composer update && composer dump-autoload -o
 npm:			; npm update --save-dev
 
 # Build assets with webpack
-webpack: 		; webpack --progress
+webpack: 		; mkdir -p web/assets/dist && webpack --progress
 
 # Run development server
 up:			; @bin/run up
