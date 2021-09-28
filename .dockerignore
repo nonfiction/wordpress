@@ -17,9 +17,9 @@ web/content/cache
 web/content/settings
 
 # Drop-in plugins
-web/content/db.php
-web/content/advanced-cache.php
-web/content/object-cache.php
+# web/content/db.php
+# web/content/advanced-cache.php
+# web/content/object-cache.php
 
 # Logs
 web/content/debug.log

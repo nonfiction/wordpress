@@ -161,6 +161,12 @@ services:
           cpus: '0.50'
           memory: 50M
 
+    command:
+      - redis-server
+      - --databases 1
+      - --maxmemory 50mb
+      - --maxmemory-policy allkeys-lru
+
     networks:
       - backend
 
