@@ -12,10 +12,10 @@ services:
       placement:
         constraints: [node.role == manager]
 
-      resources:
-        limits:
-          cpus: '0.7'
-          memory: 500M
+      # resources:
+      #   limits:
+      #     cpus: '0.7'
+      #     memory: 500M
 
       restart_policy:
         condition: on-failure
