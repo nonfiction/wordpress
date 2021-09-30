@@ -43,7 +43,7 @@ services:
 
         # Set these when ready to launch
         # MAIN_DOMAIN="example.com"
-        # SANS_DOMAIN="www.example.com,www2.example.com"
+        # SANS_DOMAIN="www.example.com"
         <% MAIN_DOMAIN="" -%>
         <% SANS_DOMAIN="" -%>
         <% if [ ! -z "$MAIN_DOMAIN" ]; then -%>
@@ -76,7 +76,8 @@ services:
         traefik.http.routers.<%= $NAME -%>.tls.domains[0].main: "<%= $DOMAIN -%>"
         traefik.http.routers.<%= $NAME -%>.tls.domains[0].sans: "www.<%= $DOMAIN -%>"
         traefik.http.routers.<%= $NAME -%>.middlewares: "<%= $MIDDLE %>@docker"
-        traefik.http.routers.<%= $NAME -%>.service: "dummy"
+        traefik.http.services.<%= $NAME -%>.loadbalancer.server.port: "443"
+        traefik.http.services.<%= $NAME -%>.loadbalancer.server.scheme: "https"
         traefik.http.middlewares.<%= $MIDDLE -%>.redirectregex.regex: "^https://(<%= $DOMAIN %>|www.<%= $DOMAIN %>)/(.*)"
         traefik.http.middlewares.<%= $MIDDLE -%>.redirectregex.replacement: "https://<%= $MAIN_DOMAIN %>/$${2}"
         traefik.http.middlewares.<%= $MIDDLE -%>.redirectregex.permanent: "true"
