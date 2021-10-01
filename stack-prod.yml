@@ -27,17 +27,18 @@ services:
         traefik.enable: "true"
         traefik.docker.network: "proxy"
 
-        <% NAME="$(bin/get app)" -%>
+        <% ROUTER="$(bin/get app)" -%>
+        <% SERVICE="$(bin/get app)" -%>
         <% MIDDLE="$(bin/get app)-basicauth" %>
         # Password-protected staging production host 
-        traefik.http.routers.<%= $NAME -%>.entrypoints: "websecure"
-        traefik.http.routers.<%= $NAME -%>.rule: "Host(`<%= $(bin/get host) -%>`)"
-        traefik.http.routers.<%= $NAME -%>.tls.certresolver: "resolver-dns"
-        traefik.http.routers.<%= $NAME -%>.tls.domains[0].main: "<%= $(bin/get swarm) %>"
-        traefik.http.routers.<%= $NAME -%>.tls.domains[0].sans: "*.<%= $(bin/get swarm) %>"
-        traefik.http.routers.<%= $NAME -%>.middlewares: "<%= $MIDDLE %>@docker"
-        traefik.http.services.<%= $NAME -%>.loadbalancer.server.port: "443"
-        traefik.http.services.<%= $NAME -%>.loadbalancer.server.scheme: "https"
+        traefik.http.routers.<%= $ROUTER -%>.entrypoints: "websecure"
+        traefik.http.routers.<%= $ROUTER -%>.rule: "Host(`<%= $(bin/get host) -%>`)"
+        traefik.http.routers.<%= $ROUTER -%>.tls.certresolver: "resolver-dns"
+        traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].main: "<%= $(bin/get swarm) %>"
+        traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].sans: "*.<%= $(bin/get swarm) %>"
+        traefik.http.routers.<%= $ROUTER -%>.middlewares: "<%= $MIDDLE %>@docker"
+        traefik.http.services.<%= $SERVICE -%>.loadbalancer.server.port: "443"
+        traefik.http.services.<%= $SERVICE -%>.loadbalancer.server.scheme: "https"
         traefik.http.middlewares.<%= $MIDDLE -%>.basicauth.users: "<%= $(bin/get basic_auth $(bin/get host_user) $(bin/get host_password)) %>"
         traefik.http.middlewares.<%= $MIDDLE -%>.basicauth.realm: "<%= $(bin/get app) %>"
 
@@ -48,17 +49,16 @@ services:
         <% SANS_DOMAIN="" -%>
         <% if [ ! -z "$MAIN_DOMAIN" ]; then -%>
 
-        <% NAME="$(echo $MAIN_DOMAIN | tr . -)" -%>
+        <% ROUTER="$(echo $MAIN_DOMAIN | tr . -)" -%>
         <% MIDDLE="$(echo $MAIN_DOMAIN | tr . -)-redirect" %>
         # Public domain (with www redirection) for <%= $MAIN_DOMAIN %>
-        traefik.http.routers.<%= $NAME -%>.entrypoints: "websecure"
-        traefik.http.routers.<%= $NAME -%>.rule: "Host(<%= $(bin/get csv $MAIN_DOMAIN $SANS_DOMAIN) %>)"
-        traefik.http.routers.<%= $NAME -%>.tls.certresolver: "resolver-tls"
-        traefik.http.routers.<%= $NAME -%>.tls.domains[0].main: "<%= $MAIN_DOMAIN %>"
-        traefik.http.routers.<%= $NAME -%>.tls.domains[0].sans: "<%= $SANS_DOMAIN %>"
-        traefik.http.routers.<%= $NAME -%>.middlewares: "<%= $MIDDLE %>@docker"
-        traefik.http.services.<%= $NAME -%>.loadbalancer.server.port: "443"
-        traefik.http.services.<%= $NAME -%>.loadbalancer.server.scheme: "https"
+        traefik.http.routers.<%= $ROUTER -%>.entrypoints: "websecure"
+        traefik.http.routers.<%= $ROUTER -%>.rule: "Host(<%= $(bin/get csv $MAIN_DOMAIN $SANS_DOMAIN) %>)"
+        traefik.http.routers.<%= $ROUTER -%>.tls.certresolver: "resolver-tls"
+        traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].main: "<%= $MAIN_DOMAIN %>"
+        traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].sans: "<%= $SANS_DOMAIN %>"
+        traefik.http.routers.<%= $ROUTER -%>.middlewares: "<%= $MIDDLE %>@docker"
+        traefik.http.routers.<%= $ROUTER -%>.service: "<%= $SERVICE %>"
         traefik.http.middlewares.<%= $MIDDLE -%>.redirectregex.regex: "^https://<%= $SANS_DOMAIN %>/(.*)"
         traefik.http.middlewares.<%= $MIDDLE -%>.redirectregex.replacement: "https://<%= $MAIN_DOMAIN %>/$${1}"
         traefik.http.middlewares.<%= $MIDDLE -%>.redirectregex.permanent: "true"
@@ -67,17 +67,16 @@ services:
         # for DOMAIN in "oldsite.com" "retiredsite.com"; do
         <% for DOMAIN in ""; do -%>
         <% if [ ! -z "$DOMAIN" ]; then -%>
-        <% NAME="$(echo $MAIN_DOMAIN.$DOMAIN | tr . -)" -%>
+        <% ROUTER="$(echo $MAIN_DOMAIN.$DOMAIN | tr . -)" -%>
         <% MIDDLE="$(echo $MAIN_DOMAIN.$DOMAIN | tr . -)-redirect" %>
         # Redirect <%= $DOMAIN %> to <%= $MAIN_DOMAIN %>
-        traefik.http.routers.<%= $NAME -%>.entrypoints: "websecure"
-        traefik.http.routers.<%= $NAME -%>.rule: "Host(`<%= $DOMAIN -%>`,`www.<%= $DOMAIN -%>`)"
-        traefik.http.routers.<%= $NAME -%>.tls.certresolver: "resolver-tls"
-        traefik.http.routers.<%= $NAME -%>.tls.domains[0].main: "<%= $DOMAIN -%>"
-        traefik.http.routers.<%= $NAME -%>.tls.domains[0].sans: "www.<%= $DOMAIN -%>"
-        traefik.http.routers.<%= $NAME -%>.middlewares: "<%= $MIDDLE %>@docker"
-        traefik.http.services.<%= $NAME -%>.loadbalancer.server.port: "443"
-        traefik.http.services.<%= $NAME -%>.loadbalancer.server.scheme: "https"
+        traefik.http.routers.<%= $ROUTER -%>.entrypoints: "websecure"
+        traefik.http.routers.<%= $ROUTER -%>.rule: "Host(`<%= $DOMAIN -%>`,`www.<%= $DOMAIN -%>`)"
+        traefik.http.routers.<%= $ROUTER -%>.tls.certresolver: "resolver-tls"
+        traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].main: "<%= $DOMAIN -%>"
+        traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].sans: "www.<%= $DOMAIN -%>"
+        traefik.http.routers.<%= $ROUTER -%>.middlewares: "<%= $MIDDLE %>@docker"
+        traefik.http.routers.<%= $ROUTER -%>.service: "<%= $SERVICE %>"
         traefik.http.middlewares.<%= $MIDDLE -%>.redirectregex.regex: "^https://(<%= $DOMAIN %>|www.<%= $DOMAIN %>)/(.*)"
         traefik.http.middlewares.<%= $MIDDLE -%>.redirectregex.replacement: "https://<%= $MAIN_DOMAIN %>/$${2}"
         traefik.http.middlewares.<%= $MIDDLE -%>.redirectregex.permanent: "true"

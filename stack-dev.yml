@@ -12,11 +12,6 @@ services:
       placement:
         constraints: [node.role == manager]
 
-      # resources:
-      #   limits:
-      #     cpus: '0.7'
-      #     memory: 500M
-
       restart_policy:
         condition: on-failure
 
@@ -24,14 +19,15 @@ services:
         traefik.enable: "true"
         traefik.docker.network: "proxy"
 
-        <% NAME="$(bin/get app)" %>
-        traefik.http.routers.<%= $NAME -%>.entrypoints: "websecure"
-        traefik.http.routers.<%= $NAME -%>.rule: "Host(`<%= $(bin/get host) %>`)"
-        traefik.http.routers.<%= $NAME -%>.tls.certresolver: "resolver-dns"
-        traefik.http.routers.<%= $NAME -%>.tls.domains[0].main: "<%= $(bin/get swarm) %>"
-        traefik.http.routers.<%= $NAME -%>.tls.domains[0].sans: "*.<%= $(bin/get swarm) %>"
-        traefik.http.services.<%= $NAME -%>.loadbalancer.server.port: "443"
-        traefik.http.services.<%= $NAME -%>.loadbalancer.server.scheme: "https"
+        <% ROUTER="$(bin/get app)" -%>
+        <% SERVICE="$(bin/get app)" %>
+        traefik.http.routers.<%= $ROUTER -%>.entrypoints: "websecure"
+        traefik.http.routers.<%= $ROUTER -%>.rule: "Host(`<%= $(bin/get host) %>`)"
+        traefik.http.routers.<%= $ROUTER -%>.tls.certresolver: "resolver-dns"
+        traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].main: "<%= $(bin/get swarm) %>"
+        traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].sans: "*.<%= $(bin/get swarm) %>"
+        traefik.http.services.<%= $SERVICE -%>.loadbalancer.server.port: "443"
+        traefik.http.services.<%= $SERVICE -%>.loadbalancer.server.scheme: "https"
 
     environment:
       # used by webpack.config.js
