@@ -29,6 +29,7 @@ web/content/mu-plugins/*
 web/content/plugins/*
 !web/content/plugins/.gitkeep
 !web/content/plugins/nf*
+web/content/plugins/nf-tweak-*
 
 # WP themes
 web/content/themes/*
@@ -43,11 +44,6 @@ web/content/cache/*
 !web/content/cache/.gitkeep
 web/content/settings/*
 !web/content/settings/.gitkeep
-
-# Drop-in plugins
-# web/content/object-cache.php
-# web/content/advanced-cache.php
-# web/content/db.php
 
 # Logs
 web/content/debug.log
