@@ -17,7 +17,7 @@ vendor/*
 # WP core
 web/wp
 
-# Symlinked from app/layouts
+# Symlinked from app/views
 web/assets/img
 
 # WP mu-plugins

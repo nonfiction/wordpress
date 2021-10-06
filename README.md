@@ -13,7 +13,7 @@ webpack     -- Build assets with webpack
 context     -- Switch docker context
 build       -- Build and push tagged image
 artifact    -- Install depedenencies before building
-deploy      -- Deploy a tagged image in the current docker context
+deploy      -- Deploy a tagged image to chosen docker context
 push        -- Push db/uploads to current docker context
 pull        -- Pull db/uploads from current docker context
 shell       -- Launch a bash shell to explore
@@ -28,6 +28,7 @@ init        -- Initialize website for development
  composer require wpackagist-theme/hueman          -- Install WP theme
  npm install --save-dev jquery                     -- Install npm module
  bin/wp core version                               -- WP-CLI commands
+ bin/wp replace https://BEFORE https://AFTER       -- WP-CLI search-replace
  docker service logs -f wordpress_srv              -- Show logs
 ```
 
