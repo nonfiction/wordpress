@@ -90,10 +90,7 @@ services:
 
     environment:
       WP_ENV: "production"
-
       HOST: "<%= $(bin/get host) %>"
-      HOST_USER: "<%= $(bin/get host_user) %>"
-      HOST_PASSWORD: "<%= $(bin/get host_password) %>"
 
       DB_HOST: "<%= $(bin/get DB_HOST) %>:<%= $(bin/get DB_PORT) %>"
       DB_NAME: "<%= $(bin/get db_name) %>"
