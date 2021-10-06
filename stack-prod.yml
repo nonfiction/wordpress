@@ -1,16 +1,24 @@
 version: '3.8'
 services:
 
-  # Webpack Dev Server
-  dev:
-    image: nonfiction/webpack:v1
-    command: webpack-dev-server --hide-modules --hot
+  # Wordpress
+  srv:
+    image: <%= $(bin/get image --tag) %>
 
     deploy:
-      mode: replicated
-      replicas: 1
+      mode: global
+
+      # On a single-node swarm, allow this service on the manager node
+      # On a multi-node swarm, only allow this service to worker nodes
+      <% if [ "$(bin/get nodes|wc -w)" != "1" ]; then %>
       placement:
-        constraints: [node.role == manager]
+        constraints: [node.role == worker]
+      <% fi %>
+
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 800M
 
       restart_policy:
         condition: on-failure
@@ -20,47 +28,68 @@ services:
         traefik.docker.network: "proxy"
 
         <% ROUTER="$(bin/get app)" -%>
-        <% SERVICE="$(bin/get app)" %>
+        <% SERVICE="$(bin/get app)" -%>
+        <% MIDDLE="$(bin/get app)-basicauth" %>
+        # Password-protected staging production host 
         traefik.http.routers.<%= $ROUTER -%>.entrypoints: "websecure"
-        traefik.http.routers.<%= $ROUTER -%>.rule: "Host(`<%= $(bin/get host) %>`)"
+        traefik.http.routers.<%= $ROUTER -%>.rule: "Host(`<%= $(bin/get host) -%>`)"
         traefik.http.routers.<%= $ROUTER -%>.tls.certresolver: "resolver-dns"
         traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].main: "<%= $(bin/get swarm) %>"
         traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].sans: "*.<%= $(bin/get swarm) %>"
+        traefik.http.routers.<%= $ROUTER -%>.middlewares: "<%= $MIDDLE %>@docker"
         traefik.http.services.<%= $SERVICE -%>.loadbalancer.server.port: "443"
         traefik.http.services.<%= $SERVICE -%>.loadbalancer.server.scheme: "https"
+        traefik.http.services.<%= $SERVICE -%>.loadbalancer.sticky.cookie: "true"
+        traefik.http.services.<%= $SERVICE -%>.loadbalancer.sticky.cookie.name: "<%= $SERVICE -%>_sticky"
+        traefik.http.middlewares.<%= $MIDDLE -%>.basicauth.users: "<%= $(bin/get basic_auth $(bin/get host_user) $(bin/get host_password)) %>"
+        traefik.http.middlewares.<%= $MIDDLE -%>.basicauth.realm: "<%= $(bin/get app) %>"
+
+        # Set these when ready to launch
+        # MAIN_DOMAIN="example.com"
+        # SANS_DOMAIN="www.example.com"
+        <% MAIN_DOMAIN="" -%>
+        <% SANS_DOMAIN="" -%>
+        <% if [ ! -z "$MAIN_DOMAIN" ]; then -%>
+
+        <% ROUTER="$(echo $MAIN_DOMAIN | tr . -)" -%>
+        <% MIDDLE="$(echo $MAIN_DOMAIN | tr . -)-redirect" %>
+        # Public domain (with www redirection) for <%= $MAIN_DOMAIN %>
+        traefik.http.routers.<%= $ROUTER -%>.entrypoints: "websecure"
+        traefik.http.routers.<%= $ROUTER -%>.rule: "Host(<%= $(bin/get csv $MAIN_DOMAIN $SANS_DOMAIN) %>)"
+        traefik.http.routers.<%= $ROUTER -%>.tls.certresolver: "resolver-tls"
+        traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].main: "<%= $MAIN_DOMAIN %>"
+        traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].sans: "<%= $SANS_DOMAIN %>"
+        traefik.http.routers.<%= $ROUTER -%>.middlewares: "<%= $MIDDLE %>@docker"
+        traefik.http.routers.<%= $ROUTER -%>.service: "<%= $SERVICE %>"
+        traefik.http.middlewares.<%= $MIDDLE -%>.redirectregex.regex: "^https://<%= $SANS_DOMAIN %>/(.*)"
+        traefik.http.middlewares.<%= $MIDDLE -%>.redirectregex.replacement: "https://<%= $MAIN_DOMAIN %>/$${1}"
+        traefik.http.middlewares.<%= $MIDDLE -%>.redirectregex.permanent: "true"
+
+        # Domain redirections
+        # for DOMAIN in "oldsite.com" "retiredsite.com"; do
+        <% for DOMAIN in ""; do -%>
+        <% if [ ! -z "$DOMAIN" ]; then -%>
+        <% ROUTER="$(echo $MAIN_DOMAIN.$DOMAIN | tr . -)" -%>
+        <% MIDDLE="$(echo $MAIN_DOMAIN.$DOMAIN | tr . -)-redirect" %>
+        # Redirect <%= $DOMAIN %> to <%= $MAIN_DOMAIN %>
+        traefik.http.routers.<%= $ROUTER -%>.entrypoints: "websecure"
+        traefik.http.routers.<%= $ROUTER -%>.rule: "Host(`<%= $DOMAIN -%>`,`www.<%= $DOMAIN -%>`)"
+        traefik.http.routers.<%= $ROUTER -%>.tls.certresolver: "resolver-tls"
+        traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].main: "<%= $DOMAIN -%>"
+        traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].sans: "www.<%= $DOMAIN -%>"
+        traefik.http.routers.<%= $ROUTER -%>.middlewares: "<%= $MIDDLE %>@docker"
+        traefik.http.routers.<%= $ROUTER -%>.service: "<%= $SERVICE %>"
+        traefik.http.middlewares.<%= $MIDDLE -%>.redirectregex.regex: "^https://(<%= $DOMAIN %>|www.<%= $DOMAIN %>)/(.*)"
+        traefik.http.middlewares.<%= $MIDDLE -%>.redirectregex.replacement: "https://<%= $MAIN_DOMAIN %>/$${2}"
+        traefik.http.middlewares.<%= $MIDDLE -%>.redirectregex.permanent: "true"
+        <% fi %>
+        <% done %>
+
+        <% fi %>
+
 
     environment:
-      # used by webpack.config.js
-      UPSTREAM: "https://<%= $(bin/get app) %>_srv"
-
-    volumes:
-      - <%= $(pwd) %>/webpack.config.js:/srv/webpack.config.js
-      - <%= $(pwd) %>/node_modules:/srv/node_modules
-      - <%= $(pwd) %>/package.json:/srv/package.json
-      - <%= $(pwd) %>/package-lock.json:/srv/package-lock.json
-      - <%= $(pwd) %>/app:/srv/app
-      - <%= $(pwd) %>/config:/srv/config
-      - <%= $(pwd) %>/web:/srv/web
-
-    networks:
-      - backend
-      - proxy
-
-  # Wordpress
-  srv:
-    image: <%= $(bin/get image --tag) %>
-
-    deploy:
-      mode: replicated
-      replicas: 1
-      placement:
-        constraints: [node.role == manager]
-
-      restart_policy:
-        condition: on-failure
-
-    environment:
-      WP_ENV: "development"
+      WP_ENV: "production"
 
       HOST: "<%= $(bin/get host) %>"
       HOST_USER: "<%= $(bin/get host_user) %>"
@@ -80,20 +109,12 @@ services:
       - <%= $(bin/get uploads) %>:/srv/web/content/uploads
       - cache:/srv/web/content/cache
       - settings:/srv/web/content/settings
-      # - <%= $(bin/get cache) %>:/srv/web/content/cache
       - <%= $(bin/get dump) %>:/srv/dump.sql
-      - <%= $(pwd) %>/app:/srv/app
-      - <%= $(pwd) %>/config:/srv/config
-      - <%= $(pwd) %>/src:/srv/src
-      - <%= $(pwd) %>/theme:/srv/theme
-      - <%= $(pwd) %>/vendor:/srv/vendor
-      - <%= $(pwd) %>/web:/srv/web
-      - <%= $(pwd) %>/web/content/advanced-cache.php:/srv/web/content/advanced-cache.php:ro
-      - <%= $(pwd) %>/web/content/object-cache.php:/srv/web/content/object-cache.php:ro
-      - <%= $(pwd) %>/web/content/db.php:/srv/web/content/db.php:ro
 
     networks:
       - backend
+      - proxy
+
 
   # Cron
   cron:
@@ -105,10 +126,10 @@ services:
       placement:
         constraints: [node.role == manager]
 
-      # resources:
-      #   limits:
-      #     cpus: '0.1'
-      #     memory: 20M
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 50M
 
       restart_policy:
         condition: on-failure
@@ -140,10 +161,10 @@ services:
       placement:
         constraints: [node.role == manager]
 
-      # resources:
-      #   limits:
-      #     cpus: '0.50'
-      #     memory: 50M
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 100M
 
     command:
       - redis-server
@@ -157,8 +178,6 @@ services:
 
 networks:
   backend:
-    name: backend
-    external: true
   proxy:
     name: proxy
     driver: overlay

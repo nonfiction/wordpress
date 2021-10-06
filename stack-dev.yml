@@ -56,17 +56,15 @@ services:
       placement:
         constraints: [node.role == manager]
 
-      resources:
-        limits:
-          cpus: '0.7'
-          memory: 500M
-
       restart_policy:
         condition: on-failure
 
     environment:
-      HOST: "<%= $(bin/get host) %>"
       WP_ENV: "development"
+
+      HOST: "<%= $(bin/get host) %>"
+      HOST_USER: "<%= $(bin/get host_user) %>"
+      HOST_PASSWORD: "<%= $(bin/get host_password) %>"
 
       DB_HOST: "<%= $(bin/get DB_HOST) %>:<%= $(bin/get DB_PORT) %>"
       DB_NAME: "<%= $(bin/get db_name) %>"
@@ -80,8 +78,8 @@ services:
 
     volumes:
       - <%= $(bin/get uploads) %>:/srv/web/content/uploads
-      - <%= $(bin/get settings) %>:/srv/web/content/settings
-      - <%= $(bin/get cache) %>:/srv/web/content/cache
+      - cache:/srv/web/content/cache
+      - settings:/srv/web/content/settings
       - <%= $(bin/get dump) %>:/srv/dump.sql
       - <%= $(pwd) %>/app:/srv/app
       - <%= $(pwd) %>/config:/srv/config
@@ -106,10 +104,10 @@ services:
       placement:
         constraints: [node.role == manager]
 
-      resources:
-        limits:
-          cpus: '0.1'
-          memory: 20M
+      # resources:
+      #   limits:
+      #     cpus: '0.1'
+      #     memory: 20M
 
       restart_policy:
         condition: on-failure
@@ -141,10 +139,10 @@ services:
       placement:
         constraints: [node.role == manager]
 
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 50M
+      # resources:
+      #   limits:
+      #     cpus: '0.50'
+      #     memory: 50M
 
     command:
       - redis-server
@@ -158,9 +156,11 @@ services:
 
 networks:
   backend:
-    name: backend
-    external: true
   proxy:
     name: proxy
     driver: overlay
     external: true
+
+volumes:
+  cache:
+  settings:

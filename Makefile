@@ -10,7 +10,7 @@ all:
 	@echo -e "\tcontext \t -- Switch docker context"
 	@echo -e "\tbuild \t\t -- Build and push tagged image"
 	@echo -e "\tartifact \t -- Install depedenencies before building"
-	@echo -e "\tdeploy \t\t -- Deploy a tagged image in the current docker context"
+	@echo -e "\tdeploy \t\t -- Deploy a tagged image to a chosen docker context"
 	@echo -e "\tpush \t\t -- Push db/uploads to current docker context"
 	@echo -e "\tpull \t\t -- Pull db/uploads from current docker context"
 	@echo -e "\tshell \t\t -- Launch a bash shell to explore"
@@ -35,7 +35,7 @@ npm:			; npm update --save-dev
 webpack: 		; mkdir -p web/assets/dist && webpack --progress
 
 # Run development server
-up:			; @bin/run up
+up:			; @bin/run up && bin/get login
 down:			; docker -c default stack rm $(shell bin/get app)
 
 # Switch docker context
@@ -44,8 +44,8 @@ context: 		; @bin/run context
 # Build and push tagged docker image
 build: 			; @bin/run build
 
-# Deploy a tagged image to the current docker context
-deploy:			; @bin/run deploy
+# Deploy a tagged image to a chosen docker context
+deploy:			; @bin/run context && bin/run deploy
 
 # Install dependencies before building
 artifact: webpack composer build;
