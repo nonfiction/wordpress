@@ -29,7 +29,6 @@
     "humanmade/wp-redis-predis-client": "^0.1.0",
     "icanboogie/inflector": "^2.0",
     "johnbillion/extended-cpts": "^4.3",
-    "nielsdeblaauw/query-monitor-twig-profile": "^1.0",
     "oscarotero/env": "^2.1.0",
     "roots/bedrock-autoloader": "^1.0",
     "roots/wordpress": "^5.8",
@@ -40,9 +39,11 @@
     "vlucas/phpdotenv": "^5.3.0",
     "wp-graphql/wp-graphql": "^0.12.3",
     "wpackagist-plugin/cache-enabler": "^1.7",
+    "wpackagist-plugin/wp-redis": "^1.1",
     "wpackagist-plugin/debug-bar-constants": "^2.0",
     "wpackagist-plugin/debug-bar-post-types": "^2.0",
     "wpackagist-plugin/debug-bar-roles-and-capabilities": "^0.1.1",
+    "wpackagist-plugin/debug-bar-cache-lookup": "^0.1.1",
     "wpackagist-plugin/disable-comments-rb": "^1.0",
     "wpackagist-plugin/imsanity": "^2.6",
     "wpackagist-plugin/insert-headers-and-footers": "^1.6",
@@ -56,7 +57,6 @@
     "wpackagist-plugin/user-switching": "^1.5",
     "wpackagist-plugin/wordpress-importer": "^0.7.0",
     "wpackagist-plugin/wp-crontrol": "^1.8",
-    "wpackagist-plugin/wp-redis": "^1.1",
     "wpackagist-plugin/wp-test-email": "^1.1"
   },
   "require-dev": {
@@ -72,6 +72,8 @@
   "extra": {
     "installer-paths": {
       "web/content/mu-plugins/{$name}/": [
+        "wpackagist-plugin/cache-enabler",
+        "wpackagist-plugin/wp-redis",
         "type:wordpress-muplugin"
       ],
       "web/content/plugins/{$name}/": [

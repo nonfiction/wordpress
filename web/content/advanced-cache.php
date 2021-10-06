@@ -14,7 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
   exit;
 }
 
-
 // Tweaked dropin for Cache Enabler
 // Helps clear local disk cache on all nodes in docker swarm
 //
@@ -86,7 +85,7 @@ add_action('init', function() {
 });
 
 
-$cache_enabler_dir = dirname( __FILE__ ) . '/plugins/cache-enabler';
+$cache_enabler_dir = dirname( __FILE__ ) . '/mu-plugins/cache-enabler';
 $cache_enabler_constants_file = $cache_enabler_dir . '/constants.php';
 
 if ( file_exists( $cache_enabler_constants_file ) ) {
