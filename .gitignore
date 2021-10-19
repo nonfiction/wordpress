@@ -54,5 +54,6 @@ deploy/*
 
 # Misc
 scratch
+package-lock.json
 *.lock
 .htaccess
