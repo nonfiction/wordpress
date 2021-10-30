@@ -10,7 +10,7 @@ all:
 	@echo -e "\tcontext \t -- Switch docker context"
 	@echo -e "\tbuild \t\t -- Build and push tagged image"
 	@echo -e "\tartifact \t -- Install depedenencies before building"
-	@echo -e "\tdeploy \t\t -- Deploy a tagged image to a chosen docker context"
+	@echo -e "\tdeploy \t\t -- Deploy a tagged image in a chosen docker context"
 	@echo -e "\tpush \t\t -- Push db/uploads to current docker context"
 	@echo -e "\tpull \t\t -- Pull db/uploads from current docker context"
 	@echo -e "\tshell \t\t -- Launch a bash shell to explore"
@@ -24,6 +24,7 @@ all:
 	@echo -e "\tbin/wp core version\t\t\t\t\t -- WP-CLI commands"
 	@echo -e "\tbin/wp replace https://BEFORE https://AFTER\t\t -- WP-CLI search-replace"
 	@echo -e "\tdocker service logs -f $(shell bin/get app)_srv"
+	@echo -e "\tdocker service update $(shell bin/get app)_srv"
 
 # Install composer packages
 composer:		; composer update && composer dump-autoload -o
@@ -45,22 +46,22 @@ context: 		; @bin/run context
 build: 			; @bin/run build
 
 # Deploy a tagged image to a chosen docker context
-deploy:			; @bin/run context && bin/run deploy
+deploy:	context		; @bin/run deploy
 
 # Install dependencies before building
 artifact: webpack composer build;
 
 # Push/pull data to/from current docker context
-push_db:		; @bin/run push_db
-pull_db:		; @bin/run pull_db
-push_uploads: 		; @bin/run push_uploads
-pull_uploads: 		; @bin/run pull_uploads
+push_db: context		; @bin/run push_db
+pull_db: context		; @bin/run pull_db
+push_uploads: context 		; @bin/run push_uploads
+pull_uploads: context 		; @bin/run pull_uploads
 
-push: push_uploads push_db 
-pull: pull_uploads pull_db 
+push: context push_uploads push_db 
+pull: context pull_uploads pull_db 
 
 # Launch a bash shell to explore
-shell:			; $(shell bin/get shell srv)
+shell: context			; $(shell bin/get shell srv)
 oneoff:			; docker run -it --rm -v $(shell bin/get uploads):/srv/web/content/uploads $(shell bin/get image):latest bash
 login:			; @bin/get login
 
