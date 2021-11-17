@@ -57,7 +57,7 @@ Config::define( 'DB_COLLATE', '' );
 $table_prefix = env('DB_PREFIX') ?: 'wp_';
 
 // Reddis Cache settings
-Config::define( 'REDIS_HOST', env('REDIS_HOST') ?: ( Config::get('APP_SLUG') . '_redis' ) );
+Config::define( 'REDIS_HOST', env('REDIS_HOST') ?: ( Config::get('APP') . '_redis' ) );
 $redis_server = [ 'host' => Config::get('REDIS_HOST') ];
 
 // Enable caching
