@@ -1,5 +1,7 @@
 <?php
 
+namespace nf;
+
 // Load app directory (post types, block types, twig views, assets)
 require_once( ROOT_DIR . '/app/app.php' );
 
@@ -14,16 +16,16 @@ remove_theme_support( 'core-block-patterns' );
 // Set values used in most templates
 add_filter( 'timber/context', function($context) {
 
-  $context['site'] = new Timber\Site();
-  $context['menu_brand'] = new nf\Menu( 'Brand' );
-  $context['menu_primary'] = new nf\Menu( 'Primary' );
-  $context['menu_footer'] = new nf\Menu( 'Footer' );
+  $context['site'] = new \Timber\Site();
+  $context['menu_brand'] = new Menu( 'Brand' );
+  $context['menu_primary'] = new Menu( 'Primary' );
+  $context['menu_footer'] = new Menu( 'Footer' );
 
-  $context['img'] = home_url() . '/assets/img';
+  $context['img'] = '/assets/img';
   $context['s'] = get_search_query();
 
-  $context['post'] = nf\PostType::get_post();
-  $context['posts'] = nf\PostType::get_posts();
+  $context['post'] = PostType::get_post();
+  $context['posts'] = PostType::get_posts();
 
   return $context;
 
@@ -42,6 +44,34 @@ add_filter( 'timber/twig', function( $twig ) {
   }));
 
   // Adding functions as filters.
+  $twig->addFunction( new \Twig\TwigFunction( 'debug', function( $args ) {
+    return '<pre>' . print_r($args, true) . '</pre>';
+  }));
+
+  $twig->addFilter( new \Twig\TwigFilter( 'titleize', function( $input ) {
+    return (is_empty($input)) ? '' : titleize($input);
+  }));
+
+  $twig->addFilter( new \Twig\TwigFilter( 'humanize', function( $input ) {
+    return (is_empty($input)) ? '' : humanize($input);
+  }));
+
+  $twig->addFilter( new \Twig\TwigFilter( 'decode', function( $input ) {
+    return (is_empty($input)) ? '' : base64_decode($input);
+  }));
+
+  $twig->addFilter( new \Twig\TwigFilter( 'padded', function( $input ) {
+    return (is_empty($input)) ? '' : str_pad($input, 2, '0', STR_PAD_LEFT);
+  }));
+
+  $twig->addFilter( new \Twig\TwigFilter( 'currency', function( $input ) {
+    return (is_empty($input)) ? '' : number_format((float)$input, 2, '.', '');
+  }));
+
+  $twig->addFilter( new \Twig\TwigFilter( 'strtotime', function( $input ) {
+    return (is_empty($input)) ? '' : strtotime($input);
+  }));
+
   $twig->addFilter( new \Twig\TwigFilter( 'extract_image', function( $input ) {
     if ( preg_match("%(?<=src=\")([^\"])+(png|jpg|jpeg|gif|svg)%i",$input,$result)) {
       return $result[0];
@@ -51,3 +81,15 @@ add_filter( 'timber/twig', function( $twig ) {
   return $twig;
 
 });
+
+
+add_action('admin_bar_menu', function($admin_bar){
+
+  $admin_bar->add_menu([
+    'id'     => 'flush',
+    'href'   => '/wp/wp-admin/options-general.php?page=flush',
+    'parent' => 'top-secondary',
+    'title'  => 'Flush',
+  ]);
+
+}, 100);

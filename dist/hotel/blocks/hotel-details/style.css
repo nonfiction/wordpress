@@ -1,0 +1,173 @@
+
+.nf-hotel-details {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.nf-hotel-details.editor {
+  width: auto;
+  left: auto;
+  right: auto;
+  margin: auto;
+  overflow: visible;
+}
+
+.nf-hotel-details > .container {
+  padding-top: 50px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+@media (min-width: 992px) {
+  .nf-hotel-details > .container {
+     flex-flow: row nowrap;
+  }
+}
+
+
+.nf-hotel-details__main {
+  flex: 1 1 100%;
+  padding: 0 0 30px 0;
+}
+
+@media (min-width: 992px) {
+  .nf-hotel-details__main {
+    padding: 0 30px 30px 0;
+  }
+}
+
+.nf-hotel-details__main :is(h1, h2, h3, h4, h5, h6, #override) {
+  color: #213B45;
+  margin: 0 0 35px 0;
+  font-size: 37px;
+  font-weight: bold;
+  line-height: 1.1;
+  text-transform: none;
+}
+
+.nf-hotel-details__main :is(a) {
+  display: bold;
+  font-weight: 600;
+  font-size: 21px;
+  color: #959C5B;
+}
+
+
+.nf-hotel-details__aside {
+  flex: 1 0 300px;
+  margin: 0 auto;
+}
+
+.nf-hotel-details__aside-header {
+  box-sizing: border-box;
+  background: #213B45;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1; 
+  padding: 30px;
+  margin: 0;
+  width: 100%;
+  display: block;
+}
+
+.nf-hotel-details__aside-content {
+  padding: 30px;
+  background: #fff;
+  font-size: 16px;
+  color: #77797E;
+}
+
+.nf-hotel-details__aside-content > div {
+  padding: 5px 0;
+}
+
+.nf-hotel-details__address, 
+.nf-hotel-details__address > a {
+  font-size: 16px;
+  color: #77797E;
+  text-decoration: none;
+}
+
+.nf-hotel-details__phone,
+.nf-hotel-details__phone > a {
+  font-size: 21px;
+  color: #213B45;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.nf-hotel-details__times {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.nf-hotel-details__times > div {
+  flex: 1 1 50%;
+}
+
+.nf-hotel-details__times > div > label,
+.nf-hotel-details__times > div > time {
+  display: block;
+  width: 100%;
+  font-size: 17px;
+  font-weight: normal;
+}
+
+.nf-hotel-details__times > div > time,
+.nf-hotel-details__times > div > time > a {
+  font-size: 21px;
+  text-decoration: none;
+  color: #213B45;
+  font-weight: 600;
+}
+
+.nf-hotel-details__aside-content > hr {
+  height: 0;
+  border-width: 1px 0px 0px;
+  margin: 24px 0;
+  border-top: 2px solid rgb(232, 233, 234);
+}
+
+
+.nf-hotel-details__reviews { }
+
+.nf-hotel-details__reviews label {
+  font-weight: bold;
+  font-size: 21px;
+  color: #213B45;
+}
+
+a.nf-hotel-details__button {
+  display: block;
+  color: #fff;
+  background: #213B45;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 10px 40px;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+#trust-you-iframe-details { height: 75px; }
+
+.wp-block-nf-booking-bar .nf-booking-bar {
+  position: relative;
+  overflow: visible;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  transform: scale(0.7,0.7);
+  pointer-events: none;
+}

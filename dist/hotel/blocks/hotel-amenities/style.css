@@ -1,0 +1,89 @@
+.nf-hotel-amenities {
+  position: relative;
+  padding-bottom: 30px;
+}
+
+.nf-hotel-amenities #amenities {
+  position: absolute; 
+  top: -40px;
+}
+
+.nf-hotel-amenities h3 {
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.nf-hotel-amenities ul {
+  display: grid;
+  grid-template-columns: auto;
+  gap: 15px 15px;
+}
+
+@media (min-width: 400px) {
+  .nf-hotel-amenities ul {
+    grid-template-columns: repeat( 2, minmax(40%, 1fr) );
+  }
+}
+
+@media (min-width: 768px) {
+  .nf-hotel-amenities ul {
+    grid-template-columns: repeat( 3, minmax(25%, 1fr) );
+  }
+}
+
+li.nf-hotel-amenity {
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 0 0 40px;
+  margin: 0;
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  background-size: 32px 32px;
+  color: #77797f;
+  font-size: 16px;
+  background-image: url(./icons/amenity.png);
+}
+
+
+li[data-amenity="air-conditioned"] { background-image: url(./icons/air-conditioned.png); }
+li[data-amenity="business-centre"] { background-image: url(./icons/business-centre.png); }
+li[data-amenity="coffee-maker"] { background-image: url(./icons/coffee-maker.png); }
+li[data-amenity="complimentary-hot-breakfast"] { background-image: url(./icons/complimentary-hot-breakfast.png); }
+li[data-amenity="cots-available"] { background-image: url(./icons/cots-available.png); }
+li[data-amenity="cribs-available"] { background-image: url(./icons/cribs-available.png); }
+li[data-amenity="dining-area"] { background-image: url(./icons/dining-area.png); }
+li[data-amenity="fitness-centre"] { background-image: url(./icons/fitness-centre.png); }
+li[data-amenity="flat-screen-tv"] { background-image: url(./icons/flat-screen-tv.png); }
+li[data-amenity="free-high-speed-wi-fi"] { background-image: url(./icons/free-high-speed-wi-fi.png); }
+li[data-amenity="free-parking"] { background-image: url(./icons/free-parking.png); }
+li[data-amenity="full-size-kitchen"] { background-image: url(./icons/full-size-kitchen.png); }
+li[data-amenity="games-room"] { background-image: url(./icons/games-room.png); }
+li[data-amenity="guest-laundry"] { background-image: url(./icons/guest-laundry.png); }
+li[data-amenity="hair-dryer"] { background-image: url(./icons/hair-dryer.png); }
+li[data-amenity="handicap-accessible"] { background-image: url(./icons/handicap-accessible.png); }
+li[data-amenity="hdtvs"] { background-image: url(./icons/hdtvs.png); }
+li[data-amenity="heated-indoor-pool"] { background-image: url(./icons/heated-indoor-pool.png); }
+li[data-amenity="high-speed-fiber-optic-internet"] { background-image: url(./icons/high-speed-fiber-optic-internet.png); }
+li[data-amenity="hot-tub"] { background-image: url(./icons/hot-tub.png); }
+li[data-amenity="in-room-fridges"] { background-image: url(./icons/in-room-fridges.png); }
+li[data-amenity="in-room-keurig"] { background-image: url(./icons/in-room-keurig.png); }
+li[data-amenity="indoor-hot-tub"] { background-image: url(./icons/indoor-hot-tub.png); }
+li[data-amenity="iron-and-board"] { background-image: url(./icons/iron-and-board.png); }
+li[data-amenity="kitchenettes"] { background-image: url(./icons/kitchenettes.png); }
+li[data-amenity="meeting-rooms"] { background-image: url(./icons/meeting-rooms.png); }
+li[data-amenity="microwaves"] { background-image: url(./icons/microwaves.png); }
+li[data-amenity="mini-mart"] { background-image: url(./icons/mini-mart.png); }
+li[data-amenity="over-sized-vehicle-parking"] { background-image: url(./icons/over-sized-vehicle-parking.png); }
+li[data-amenity="pet-friendly-fee"] { background-image: url(./icons/pet-friendly-fee.png); }
+li[data-amenity="pool"] { background-image: url(./icons/pool.png); }
+li[data-amenity="small-fridge"] { background-image: url(./icons/small-fridge.png); }
+li[data-amenity="steam-room"] { background-image: url(./icons/steam-room.png); }
+li[data-amenity="suites-available"] { background-image: url(./icons/suites-available.png); }
+li[data-amenity="to-go-breakfast"] { background-image: url(./icons/to-go-breakfast.png); }
+li[data-amenity="waterslide"] { background-image: url(./icons/waterslide.png); }
+li[data-amenity="wheelchair-accessible-rooms"] { background-image: url(./icons/wheelchair-accessible-rooms.png); }

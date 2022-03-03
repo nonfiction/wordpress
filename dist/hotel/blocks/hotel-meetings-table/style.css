@@ -1,0 +1,32 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.nf-hotel-meeting-table > tbody > tr:hover {
+  background-color: #e8e9ea;
+  border-color:#e8e9ea;
+}
+
+.nf-hotel-meeting-table > tbody > tr {
+  padding: 25px;
+  line-height: 1.5;
+  vertical-align: top;
+  border-top: 1px solid #d2d2d4;
+}
+
+.nf-hotel-meeting-table td {
+  padding: 8px 0 8px 10px;
+}
+
+.nf-hotel-meeting-table th{
+  background-color:#183c46;
+  color: #ffffff;
+  padding: 16px 0px 16px 10px;
+  font-size: 18px;
+} 
+
+.nf-hotel-meeting-table .nf-table-end {
+  padding-right: 10px;
+}

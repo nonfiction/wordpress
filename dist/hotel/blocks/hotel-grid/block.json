@@ -1,0 +1,14 @@
+{
+  "name": "nf/hotel-grid",
+
+  "title": "Hotel Grid",
+  "icon": "screenoptions",
+  "category": "hotel",
+
+  "supports": {
+     "html": false
+  },
+
+  "attributes": {}
+
+}

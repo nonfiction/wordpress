@@ -1,0 +1,34 @@
+{
+  "name": "nf/hotel-details",
+
+  "title": "Hotel Details",
+  "icon": "dashicons-media-document",
+  "category": "hotel",
+
+  "supports": {
+     "align": false,
+     "html": false
+  },
+
+  "meta": [
+    { "key": "event_rooms_count", "post_type": "hotel" },
+    { "key": "event_space_size",  "post_type": "hotel" }
+  ],
+
+  "attributes": {
+    "align":                { "type": "string", "default": "full" },
+    "introduction":         { "type": "string" },
+    "address":              { "type": "string" },
+    "phone":                { "type": "string" },
+    "check_in":             { "type": "string" },
+    "check_out":            { "type": "string" },
+    "features":             { "type": "string" },
+    "meetings_image":       { "type": "string" },
+    "meetings_description": { "type": "string" },
+    "event_rooms_count":    { "type": "string", "source": "meta", "meta": "event_rooms_count" },
+    "event_space_size":     { "type": "string", "source": "meta", "meta": "event_space_size" },
+    "event_space_capacity": { "type": "string", "source": "meta", "meta": "event_space_capacity" },
+    "max_breakout_rooms":   { "type": "string", "source": "meta", "meta": "max_breakout_rooms" }
+  }
+
+}

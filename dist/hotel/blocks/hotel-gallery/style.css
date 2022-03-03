@@ -1,0 +1,342 @@
+/* -------------------- */
+
+.wp-block-nf-booking-bar {
+    overflow: hidden;
+}
+
+.nf-hotel-gallery {
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    z-index: 1;
+    overflow: hidden;
+    /* background: red; */
+    background-size: cover;
+    background-position: 50% 50%;
+    /* margin-bottom: 60px; */
+}
+
+.nf-hotel__gallery::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    top: 0;
+    background: linear-gradient( rgba(28, 32, 42, 0.5), rgba(28, 32, 42, 0.5));
+}
+
+.wp-block-nf-hotel-gallery .nf-hotel-gallery {
+    width: 100%;
+    margin: auto;
+    left: auto;
+    right: auto;
+}
+
+.wp-block-nf-hotel-gallery .nf-hotel-gallery li img {
+    max-height: 250px;
+}
+
+
+/* .nf-hotel__gallery-images, */
+
+
+/* :is(.nf-hotel__gallery-images, #nf) { */
+
+:is(.editor-styles-wrapper, body) .nf-hotel-gallery__images,
+:is(.editor-styles-wrapper, body) .nf-hotel-gallery__images li {
+    /* width: 100%; */
+    margin: 0;
+    padding: 0;
+    /* display: block; */
+}
+
+.nf-hotel-gallery__images {
+    height: 75vh;
+}
+
+.editor-styles-wrapper .nf-hotel-gallery__images {
+    height: 200px;
+    background: gray;
+}
+
+
+/* .nf-hotel__gallery { width: 100%; margin: 0 auto; left: auto; right: auto; } */
+
+.nf-hotel-gallery li {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    visibility: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+.nf-hotel-gallery li.active {
+    visibility: visible;
+}
+
+.nf-hotel-gallery li img {
+    object-fit: cover;
+    object-position: 50% 50%;
+    background-attachment: fixed;
+}
+
+
+/* .nf-hotel__gallery-images li { 
+:is(.nf-hotel__gallery-images li, #nf) {
+:is(.editor-styles-wrapper, body) .nf-hotel__gallery-images {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+.wp-block-nf-hotel-gallery .nf-hotel__gallery { width: 100%; margin: 0 auto; left: auto; right: auto; }
+.wp-block-nf-hotel-gallery .nf-hotel__gallery li { display: none; }
+.wp-block-nf-hotel-gallery .nf-hotel__gallery li:first-child { display: block; }
+.wp-block-nf-hotel-gallery .nf-hotel__gallery li img { 
+  object-fit: cover;
+  object-position: 50% 0%;
+  width: 100%;
+  height: 200px;
+}
+*/
+
+.nf-hotel-gallery li img {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: block;
+    height: 100%;
+}
+
+.nf-hotel-gallery h1.hotel-title {
+    font-size: 72px;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    z-index: 30;
+    padding: 30px 0;
+    margin: 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+
+/* .background-image-wrapper {
+  min-height: 90vh;
+  background-repeat: none;
+} */
+
+
+/* .toLoad { display: block!important; }
+
+.loadingCentre {
+  position: absolute;
+  height: 130px;
+  width: 130px;
+  left: 50%;
+  top: 50%;
+  margin-left: -65px;
+  margin-top: -65px;
+  background: #fafafa;
+}
+
+#loadingBar {
+  width: 130px;
+  height: 15px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}
+
+.loadedContent { height: 800px; }
+
+#loadingText {
+  text-align: center;
+  color: #AAA;
+  font-size: 11px;
+  font-family: arial;
+} */
+
+.nf-hotel-gallery__caption {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: auto;
+    text-align: right;
+    padding: 2px 10px;
+    color: #fff;
+    display: none;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    z-index: 101;
+}
+
+.nf-hotel-gallery__caption.is-on {
+    display: block;
+}
+
+.gallery-prev-next-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    position: absolute;
+    bottom: 0px;
+    /* transform: translateY(-50%); */
+    padding: 3px 5%;
+    box-sizing: border-box;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.40);
+    z-index: 100;
+}
+
+.gallery-step-button {
+    width: 21px;
+    height: 21px;
+    background: white;
+    cursor: pointer;
+}
+
+.gallery-prev-button {
+    mask: url(../../../views/img/prev.svg) no-repeat center / contain;
+    -webkit-mask: url(../../../views/img/prev.svg) no-repeat center / contain;
+}
+
+.gallery-next-button {
+    mask: url(../../../views/img/next.svg) no-repeat center / contain;
+    -webkit-mask: url(../../../views/img/next.svg) no-repeat center / contain;
+}
+
+.gallery-grid-select img {
+    width: 20px;
+    height: 20px;
+}
+
+.grid-gallery-carousel {
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 1);
+    align-items: center;
+    display: none;
+    height: 100%;
+    overflow: hidden;
+}
+
+.grid-gallery-carousel.active {
+    display: flex;
+}
+
+.grid-gallery-carousel .owl-carousel {
+    width: 100%;
+    margin: auto;
+}
+
+.owl-carousel-container .owl-dots {
+    display: none;
+}
+
+.owl-carousel-container {
+    height: auto;
+    width: 60vw;
+    position: relative;
+    margin: auto;
+}
+
+.owl-carousel-container .close-gallery-modal {
+    font-size: 50px;
+    position: absolute;
+    right: 10px;
+    top: 3px;
+    color: white;
+    font-weight: 300;
+    z-index: 10;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.owl-custom-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+    flex-wrap: wrap;
+}
+
+.owl-dot-image {
+    width: 100px;
+    height: 100px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.owl-dot-image.active {
+    border: 4px solid #949c51;
+}
+
+.owl-dot-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.owl-carousel-container .grid-gallery-caption {
+    text-align: center;
+    color: white;
+}
+
+.grid-gallery-items {
+    display: none;
+}
+
+.gallery-grid-select {
+    display: flex;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.owl-carousel-container .owl-custom-dots .owl-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-top: -10px;
+    display: flex!important;
+    justify-content: space-between;
+    width: 100%;
+    pointer-events: none;
+}
+
+.owl-carousel-container .owl-custom-dots .owl-nav button {
+    color: #fff!important;
+    font-size: 80px!important;
+    pointer-events: all;
+    cursor: pointer;
+    opacity: 1;
+}
+
+.owl-custom-dots .owl-stage-outer {
+    width: 80%;
+    margin: auto;
+}
+
+.owl-custom-dots .owl-stage {
+    margin: auto;
+}
+
+@media (max-width: 768px) {
+    .owl-carousel-container {
+        width: calc(100vw - 30px);
+        position: initial;
+    }
+    .owl-carousel-container .owl-carousel .owl-nav button {
+        font-size: 60px;
+    }
+    .owl-custom-dots .owl-stage-outer {
+        width: 100%;
+    }
+}

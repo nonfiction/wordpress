@@ -1,0 +1,31 @@
+{% set template = 'hotel' %} 
+{% set icon = post.meta('icon') %}
+{% extends "base.twig" %}
+
+{% block content %}
+  {% for post in posts %}
+  <article class="content post-type-{{post.post_type}} hide-title" id="post-{{post.ID}}">
+    <div class="nf-hotel">
+
+      {#
+      <div class="nf-hotel__gallery">
+
+        <ul class="nf-hotel__gallery-images">
+          {% for image in post.gallery_images() %}
+            <li><img src="{{ image }}"></li>
+          {% endfor %}
+        </ul>
+
+        <h1 class="hotel-title">{{ post.title }}</h1>
+      </div>
+      #}
+
+      {# <h1 class="page-title">{{ post.title }}</h1> #}
+      {{post.content}}
+
+    </div>
+
+
+  </article>
+  {% endfor %}
+{% endblock %}

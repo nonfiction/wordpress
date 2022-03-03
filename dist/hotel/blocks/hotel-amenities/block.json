@@ -1,0 +1,12 @@
+{
+  "name": "nf/hotel-amenities",
+
+  "title": "Hotel Amenities",
+  "icon": "dashicons-editor-ul",
+  "category": "hotel",
+
+  "supports": {
+     "html": false
+  }
+
+}

@@ -1,0 +1,29 @@
+{
+  "name": "nf/hotel-meetings",
+
+  "title": "Hotel Meetings",
+  "icon": "dashicons-welcome-write-blog",
+  "category": "hotel",
+
+  "supports": {
+     "align": false,
+     "html": false
+  },
+
+  "meta": [
+    { "key": "event_rooms_count", "post_type": "hotel" },
+    { "key": "event_space_size",  "post_type": "hotel" },
+    { "key": "event_space_capacity",  "post_type": "hotel" },
+    { "key": "max_breakout_rooms",  "post_type": "hotel" }
+  ],
+
+  "attributes": {
+    "align":                { "type": "string", "default": "full" },
+    "event_rooms_count":    { "type": "string", "source": "meta", "meta": "event_rooms_count" },
+    "event_space_size":     { "type": "string", "source": "meta", "meta": "event_space_size" },
+    "event_space_capacity": { "type": "string", "source": "meta", "meta": "event_space_capacity" },
+    "max_breakout_rooms":   { "type": "string", "source": "meta", "meta": "max_breakout_rooms" },
+    "link":                 { "type": "string", "default": "/meetings-events" }
+  }
+
+}

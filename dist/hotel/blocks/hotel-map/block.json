@@ -1,0 +1,23 @@
+{
+  "name": "nf/hotel-map",
+
+  "title": "Hotel Map",
+  "icon": "dashicons-location-alt",
+  "category": "hotel",
+
+  "supports": {
+     "html": false
+  },
+
+  "attributes": {
+    "latitude":   { "type": "string", "source": "meta", "meta": "latitude" },
+    "longitude":  { "type": "string", "source": "meta", "meta": "longitude" },
+    "directions": { "type": "string" }
+  },
+
+  "meta": [
+    { "key": "latitude", "post_type": "hotel" },
+    { "key": "longitude",  "post_type": "hotel" }
+  ]
+
+}

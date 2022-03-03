@@ -22,8 +22,5 @@ class Post extends PostType {
 }
 
 add_action( 'init', function() {
-
-  Post::register_post_type();
   // Post::hide();
-
 });

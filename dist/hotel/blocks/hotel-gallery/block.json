@@ -1,0 +1,17 @@
+{
+  "name": "nf/hotel-gallery",
+
+  "title": "Hotel Gallery",
+  "icon": "dashicons-images-alt2",
+  "category": "hotel",
+
+  "supports": {
+     "align": false,
+     "html": false
+  },
+
+  "attributes": {
+    "align":          { "type": "string", "default": "full" }
+  }
+
+}

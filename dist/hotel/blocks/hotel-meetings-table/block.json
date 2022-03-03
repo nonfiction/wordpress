@@ -1,0 +1,14 @@
+{
+  "name": "nf/hotel-meetings-table",
+
+  "title": "Hotel Table",
+  "icon": "screenoptions",
+  "category": "hotel",
+
+  "supports": {
+     "html": false
+  },
+
+  "attributes": {}
+
+}

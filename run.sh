@@ -22,9 +22,9 @@ ln -sf /srv/config/pagespeed.conf /etc/apache2/mods-enabled/pagespeed.conf
 rm -rf /srv/web/content/themes/theme && ln -sf /srv/theme /srv/web/content/themes/theme
 
 # Protect drop-in plugins from being modified
-chown root:root /srv/web/content/object-cache.php
-chown root:root /srv/web/content/advanced-cache.php
-chown root:root /srv/web/content/db.php
+chown root:root /srv/web/content/object-cache.php && chmod -w /srv/web/content/object-cache.php
+chown root:root /srv/web/content/advanced-cache.php && chmod -w /srv/web/content/advanced-cache.php
+chown root:root /srv/web/content/db.php && chmod -w /srv/web/content/db.php
 
 # Ensure the cache is cleared
 rm -rf /srv/web/content/cache/* 
@@ -36,6 +36,10 @@ chown -R www-data:www-data /srv/web/content/uploads /srv/web/content/cache /srv/
 
 # Assets in the /srv/app/views/img directory are web public at /assets/img
 rm -f /srv/web/assets/img && ln -sf /srv/app/views/img /srv/web/assets/img
+
+# Workarounds so resources can still be found when looking in the wrong place
+rm -f /srv/web/wp-content && ln -sf /srv/web/content /srv/web/wp-content
+rm -f /srv/web/app && ln -sf /srv/web/app /srv/web/content
 
 # Run Apache in foregrond
 apachectl -D FOREGROUND

@@ -1,0 +1,42 @@
+.nf-hotel-map {
+  text-align: center;
+}
+
+.nf-hotel-map.editor {
+  text-align: left;
+}
+
+.nf-hotel-map #directions {
+  position: absolute; 
+  top: -40px;
+}
+
+.nf-hotel-map > h3 {
+  font-size: 28px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 50px auto 20px;
+}
+
+a.nf-hotel-map__button {
+  display: inline-block;
+  color: #fff;
+  background: #213B45;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 10px 40px;
+  font-weight: 600;
+  font-size: 17px;
+  transition: all 0.5s ease;
+  margin: 30px auto 50px;
+}
+a.nf-hotel-map__button:hover {
+  text-decoration: none;
+  background: #1D1F29;
+}
+
+#hotel-map {
+  height: 100%;
+  min-height: 500px;
+}

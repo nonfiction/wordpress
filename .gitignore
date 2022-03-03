@@ -19,6 +19,8 @@ web/wp
 
 # Symlinked from app/views
 web/assets/img
+web/content/app
+web/wp-content
 
 # WP mu-plugins
 web/content/mu-plugins/*
@@ -44,6 +46,7 @@ web/content/cache/*
 !web/content/cache/.gitkeep
 web/content/settings/*
 !web/content/settings/.gitkeep
+web/content/cfw-data
 
 # Logs
 web/content/debug.log
@@ -54,6 +57,6 @@ deploy/*
 
 # Misc
 scratch
-package-lock.json
 *.lock
 .htaccess
+package-lock.json

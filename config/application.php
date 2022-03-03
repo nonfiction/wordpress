@@ -22,6 +22,7 @@ if (file_exists(Config::get('ROOT_DIR') . '/.env')) {
 
 // Set up our global environment constant and load its config first
 Config::define( 'WP_ENV', env('WP_ENV') ?: 'production' );
+Config::define( 'WP_ENVIRONMENT_TYPE', env('WP_ENVIRONMENT_TYPE') ?: Config::get('WP_ENV') );
 
 // Allow WordPress to detect HTTPS when used behind a reverse proxy or a load balancer
 // See https://codex.wordpress.org/Function_Reference/is_ssl#Notes
@@ -32,6 +33,12 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROT
 // Swarm host primary
 Config::define( 'HOST', strtolower(env('HOST')) );
 Config::define( 'HOST_SLUG', str_replace([' ', '-', '.'], '_', Config::get('HOST')) );
+
+// Basic Auth
+Config::define( 'HOST_AUTH', '' );
+if ( (env('HOST_USER')) && (env('HOST_PASSWORD')) ) {
+  Config::define( 'HOST_AUTH', env('HOST_USER') . ':' . env('HOST_PASSWORD') . '@' );
+}
 
 // App name
 Config::define( 'APP', env('APP') ?: strtok(Config::get('HOST'), '.') );
@@ -56,8 +63,8 @@ Config::define( 'DB_CHARSET', 'utf8mb4' );
 Config::define( 'DB_COLLATE', '' );
 $table_prefix = env('DB_PREFIX') ?: 'wp_';
 
-// Reddis Cache settings
-Config::define( 'REDIS_HOST', env('REDIS_HOST') ?: ( Config::get('APP') . '_redis' ) );
+// Redis Cache settings
+Config::define( 'REDIS_HOST', env('REDIS_HOST') ?: ( Config::get('APP_SLUG') . '_redis' ) );
 $redis_server = [ 'host' => Config::get('REDIS_HOST') ];
 
 // Enable caching

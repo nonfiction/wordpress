@@ -37,6 +37,7 @@ class App {
       add_submenu_page( 'options-general.php', 'Flush', 'Flush', 'manage_options', 'flush', [ '\nf\App', 'reflush' ], 100);
     }, 100);
 
+   
     // Automatically run reinitalize at least once
     add_action('init', function() {
       if ( is_blog_installed() ) {
@@ -200,6 +201,23 @@ function get_param($name, $default = null) {
   return sanitize_param( $_REQUEST[$name] ?? $default );
 }
 
+// Convert an associative array to comma-separated string
+// one:1,two:2,three:3
+function csv($input = []) {
+  $output = [];
+  foreach( $input as $key => $val) {
+    if ($val) {
+      $output[] = "${key}:${val}";
+    }
+  }
+  return join(',', $output);
+}
+
+function validate_date($date, $format = 'Y-m-d') {
+  $d = \DateTime::createFromFormat($format, $date);
+  return $d && $d->format($format) === $date;
+}
+
 // Read a json file and return an associative array
 function import( $path ) {
   if ( is_array($path) ) return $path; 
@@ -307,6 +325,10 @@ function ends_with( $haystack, $needle ) {
 }
 
 
+function nosp( $string ) {
+  return preg_replace( '/\s+/', '', strval($string) );
+}
+
 // Display the value in QueryMonitor or to the screen
 function log($value, $var_dump = false) {
   do_action( 'qm/debug', $value );
@@ -319,4 +341,14 @@ function log($value, $var_dump = false) {
     echo "<hr>";
     echo "<br>";
   }
+}
+
+function dump($value) {
+  echo "<br>";
+  echo "<hr>";
+  echo "<pre>";
+  var_dump($val);
+  echo "</pre>";
+  echo "<hr>";
+  echo "<br>";
 }

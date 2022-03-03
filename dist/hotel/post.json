@@ -1,0 +1,85 @@
+{
+
+  "name": "hotel",
+  "menu_icon": "dashicons-awards",
+
+  "archive": {
+    "orderby": "date",
+    "order": "DESC",
+    "nopaging": true
+  },
+
+  "unsupports": [ "page-attributes" ],
+
+  "taxonomies": {
+    "brand": {
+      "meta_box": "simple", "exclusive": true
+    },
+    "province": {
+      "meta_box": "simple", "exclusive": true
+
+    },
+    "amenity": {
+      "meta_box": "simple"
+    }
+  },
+
+  "admin_cols": {
+    "title": { 
+      "title": "Title" 
+    },
+    "brand": { 
+      "title": "Brand", 
+      "taxonomy": "brand"
+    },
+    "province": {
+      "title": "Province",
+      "taxonomy": "province"
+    },
+
+    "date": { 
+      "title": "Date", 
+      "default": "DESC" 
+    }
+  },
+
+  "template": [
+    [ "nf/hotel-gallery", [], [] ],
+    [ "nf/booking-bar", [], [] ],
+    [ "core/heading", [{ "placeholder":"Add Author" }], [] ],
+    [ "core/paragraph", [{ "placeholder":"Add Description" }], [] ]
+  ],
+
+  "metaboxes": [{
+    "title": "Hotel Properties",
+    "context": "side",
+    "fields": [{
+      "id"           : "property_id",
+      "name"         : "Property ID",
+      "type"         : "text",
+      "desc"         : "HotelKey/SynXis"
+    },{
+      "id"           : "property_code",
+      "name"         : "Property Code",
+      "type"         : "text",
+      "desc"         : "HotelKey"
+    },{
+      "id"           : "external_url",
+      "name"         : "External URL",
+      "type"         : "text_url",
+      "desc"         : ""
+    },{
+      "id"           : "icon",
+      "name"         : "Icon Replacement",
+      "desc"         : "",
+      "type"         : "file",
+      "preview_size" : [50,50]
+    },{
+      "id"           : "gallery",
+      "name"         : "Image Gallery",
+      "desc"         : "",
+      "type"         : "file_list",
+      "preview_size" : [50,50]
+    }]
+  }]
+}

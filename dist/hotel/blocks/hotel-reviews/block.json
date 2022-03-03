@@ -1,0 +1,20 @@
+{
+  "name": "nf/hotel-reviews",
+
+  "title": "Hotel Reviews",
+  "icon": "dashicons-saved",
+  "category": "hotel",
+
+  "supports": {
+     "html": false
+  },
+
+  "meta": [
+    { "key": "trustyou_id",  "post_type": "hotel" }
+  ],
+
+  "attributes": {
+    "trustyou_id":    { "type": "string", "source": "meta", "meta": "trustyou_id" }
+  }
+
+}
