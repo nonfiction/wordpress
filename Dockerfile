@@ -20,7 +20,7 @@ RUN ln -sf /srv/app/views/img /srv/web/assets/img
 
 # Workarounds so resources can still be found when looking in the wrong place
 RUN ln -sf /srv/web/content /srv/web/wp-content
-RUN ln -sf /srv/web/app /srv/web/content
+RUN ln -sf /srv/web/content /srv/web/app
 
 # Persist uploads in this volume
 VOLUME /srv/web/content/uploads
