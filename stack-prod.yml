@@ -20,8 +20,16 @@ services:
           cpus: '1.5'
           memory: 800M
 
-      restart_policy:
-        condition: on-failure
+      update_config:
+        order: start-first
+        failure_action: rollback
+        parallelism: 1
+        delay: 5s
+
+      rollback_config:
+        order: start-first
+        failure_action: pause
+        parallelism: 1
 
       labels:
         traefik.enable: "true"
@@ -127,9 +135,6 @@ services:
         limits:
           cpus: '0.5'
           memory: 50M
-
-      restart_policy:
-        condition: on-failure
 
     environment:
       HOST: "<%= $(bin/get host) %>"

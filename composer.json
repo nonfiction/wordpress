@@ -40,6 +40,7 @@
     "wpackagist-plugin/cache-enabler": "^1.7",
     "wpackagist-plugin/wp-redis": "^1.1",
     "wpackagist-plugin/disable-comments-rb": "1.0.13",
+    "wpackagist-plugin/health-endpoint": "^1.0",
     "wpackagist-plugin/imsanity": "^2.6",
     "wpackagist-plugin/insert-headers-and-footers": "^1.6",
     "wpackagist-plugin/members": "^3.0",
@@ -52,6 +53,7 @@
     "wpackagist-plugin/wordpress-importer": "^0.7.0",
     "wpackagist-plugin/wp-crontrol": "^1.8",
     "wpackagist-plugin/wp-test-email": "^1.1"
+
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.5.8",

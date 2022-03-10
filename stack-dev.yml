@@ -12,9 +12,6 @@ services:
       placement:
         constraints: [node.role == manager]
 
-      restart_policy:
-        condition: on-failure
-
       labels:
         traefik.enable: "true"
         traefik.docker.network: "proxy"
@@ -56,8 +53,16 @@ services:
       placement:
         constraints: [node.role == manager]
 
-      restart_policy:
-        condition: on-failure
+      update_config:
+        order: start-first
+        failure_action: rollback
+        parallelism: 1
+        delay: 5s
+
+      rollback_config:
+        order: start-first
+        failure_action: pause
+        parallelism: 1
 
     environment:
       WP_ENV: "development"
@@ -101,14 +106,6 @@ services:
       placement:
         constraints: [node.role == manager]
 
-      # resources:
-      #   limits:
-      #     cpus: '0.1'
-      #     memory: 20M
-
-      restart_policy:
-        condition: on-failure
-
     environment:
       HOST: "<%= $(bin/get host) %>"
       HOST_USER: "<%= $(bin/get host_user) %>"
@@ -135,11 +132,6 @@ services:
       replicas: 1
       placement:
         constraints: [node.role == manager]
-
-      # resources:
-      #   limits:
-      #     cpus: '0.50'
-      #     memory: 50M
 
     command:
       - redis-server
