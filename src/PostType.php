@@ -5,17 +5,35 @@ class PostType extends \Timber\Post {
 
   private static $post_types = [];
   public static $classmap = [];
+  protected static $register_post_type = [];
 
-  // Wrapper for Timber::get_post to always use classmap
-  public static function get_post( $query=false, $classmap=false ) {
-    $classmap = ($classmap) ? $classmap : self::$classmap;
-    return \Timber::get_post( $query, $classmap );
+  public static function __constructStatic() {
+    add_action( 'init', [ static::class, 'register_post_type' ], 10 );
   }
 
-  // Wrapper for Timber::get_posts to always use classmap
-  public static function get_posts( $query=false, $classmap=false, $return=false ) {
-    $classmap = ($classmap) ? $classmap : self::$classmap;
-    return \Timber::get_posts( $query, $classmap, $return );
+  public static function get_post( $query=[], $options=[] ) {
+    $query = (is_array($query)) ? array_merge([
+      'post_type' => static::$name, 
+    ], $query) : $query;
+    return \Timber::get_post( $query, $options );
+  }
+
+  public static function get_posts( $query=[], $options=[] ) {
+    $query = (is_array($query)) ? array_merge([
+      'post_type' => static::$name, 
+      'posts_per_page' => -1,
+    ], $query) : $query;
+    return \Timber::get_posts( $query, $options );
+  }
+
+  public static function get_post_by( $type, $search_value, $args=null ) {
+    $args = (is_array($args)) ? $args : [ 'post_type' => static::$name ];
+    return \Timber::get_post_by( $type, $search_value, $args );
+  }
+
+  public function link() {
+    $link = parent::link();
+    return (function_exists('\nf\make_link_relative')) ?  make_link_relative($link) : $link;
   }
 
   public static $name = null;
@@ -23,12 +41,15 @@ class PostType extends \Timber\Post {
   public static $args = [];
   public static $props = [];
 
-
   public static function register_post_type( $json = [], $override = [] ) {
 
-    // If the first paramter is a path to .json file, import that 
+    // If the first parameter is a path to .json file, import that 
     if ( (is_string($json)) and (ends_with($json, '.json')) ) {
-      $json = import($json);
+      $json = array_merge( static::$register_post_type, import($json) );
+ 
+    // Otherwise, use the paramater as an array
+    } else {
+      $json = array_merge( static::$register_post_type, (is_array($json)?$json:[]) );
     }
 
     // Combine json with override
@@ -85,13 +106,13 @@ class PostType extends \Timber\Post {
     static::$props['taxonomies'] = $args['taxonomies'] ?? [];
     unset($args['taxonomies']);
 
-    // If has_archive is set, use the plural slug
+    // No archive pages by default
     static::$props['has_archive'] = false;
+
+    // If has_archive is set, use the plural slug
     if ( ( isset($args['has_archive']) ) && ( $args['has_archive'] !== false ) ) {
       static::$props['has_archive'] = $names['slug_plural'];
-    } elseif ( isset($args['archive']) ) {
-      static::$props['has_archive'] = $names['slug_plural'];
-    }
+    } 
     unset($args['has_archive']);
 
     // Save args to object
@@ -116,6 +137,9 @@ class PostType extends \Timber\Post {
 
     static::activate();
 
+    // Unset args and props
+    static::$args = [];
+    static::$props = [];
   }
 
 
@@ -358,6 +382,8 @@ class PostType extends \Timber\Post {
     $post_type = get_post_type_object( static::$name );
     $post_type->template = static::$args['template'] ?? null;
     $post_type->template_lock = static::$args['template_lock'] ?? false;
+
+    register_extended_post_type( static::$name, static::$args ); 
 
     // Add supports features
     // add_post_type_support( static::$name, static::$args['supports'] );

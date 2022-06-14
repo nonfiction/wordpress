@@ -47,8 +47,8 @@ services:
         traefik.http.routers.<%= $ROUTER -%>.middlewares: "<%= $MIDDLE %>@docker"
         traefik.http.services.<%= $SERVICE -%>.loadbalancer.server.port: "443"
         traefik.http.services.<%= $SERVICE -%>.loadbalancer.server.scheme: "https"
-        traefik.http.services.<%= $SERVICE -%>.loadbalancer.sticky.cookie: "true"
-        traefik.http.services.<%= $SERVICE -%>.loadbalancer.sticky.cookie.name: "<%= $SERVICE -%>_sticky"
+        # traefik.http.services.<%= $SERVICE -%>.loadbalancer.sticky.cookie: "true"
+        # traefik.http.services.<%= $SERVICE -%>.loadbalancer.sticky.cookie.name: "<%= $SERVICE -%>_sticky"
         traefik.http.middlewares.<%= $MIDDLE -%>.basicauth.users: "<%= $(bin/get basic_auth $(bin/get host_user) $(bin/get host_password)) %>"
         traefik.http.middlewares.<%= $MIDDLE -%>.basicauth.realm: "<%= $(bin/get app) %>"
 
@@ -168,11 +168,11 @@ services:
           cpus: '0.50'
           memory: 100M
 
-    command:
-      - redis-server
-      - --databases 1
-      - --maxmemory 50mb
-      - --maxmemory-policy allkeys-lru
+    command: >
+      redis-server
+      --databases 1
+      --maxmemory 50mb
+      --maxmemory-policy allkeys-lru
 
     networks:
       - backend

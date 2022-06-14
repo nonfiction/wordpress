@@ -15,6 +15,12 @@ export SMTP_PASSWORD
 # Update msmtp config for transactional email
 esh /etc/msmtprc.esh > /etc/msmtprc
 
+# Symlink theme folder to where it belongs
+rm -rf /srv/web/content/themes/theme && ln -sf /srv/theme /srv/web/content/themes/theme
+
+# Assets in the /srv/app/views/img directory are web public at /assets/img
+rm -rf /srv/web/assets/img && ln -sf /srv/app/views/img /srv/web/assets/img
+
 # Protect drop-in plugins from being modified
 chown root:root /srv/web/content/object-cache.php && chmod -w /srv/web/content/object-cache.php
 chown root:root /srv/web/content/advanced-cache.php && chmod -w /srv/web/content/advanced-cache.php

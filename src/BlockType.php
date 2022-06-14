@@ -77,7 +77,7 @@ class BlockType {
 
       // Get the compiled template from twig file
       if ( ends_with($template, '.twig') ) {
-        $html = Timber::render( $template, $context );
+        $html = Timber::compile( $template, $context );
 
       // ...or the compiled template from a twig string
       } else {

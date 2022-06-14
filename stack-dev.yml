@@ -133,11 +133,11 @@ services:
       placement:
         constraints: [node.role == manager]
 
-    command:
-      - redis-server
-      - --databases 1
-      - --maxmemory 50mb
-      - --maxmemory-policy allkeys-lru
+    command: >
+      redis-server
+      --databases 1
+      --maxmemory 50mb
+      --maxmemory-policy allkeys-lru
 
     networks:
       - backend
