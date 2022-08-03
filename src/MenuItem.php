@@ -169,4 +169,3 @@ class MenuItem extends \Timber\MenuItem {
   }
 
 }
-

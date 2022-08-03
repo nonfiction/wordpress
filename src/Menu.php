@@ -34,15 +34,19 @@ class Menu extends \Timber\Menu {
 
       // Retreive the menu and set the items
       $menu = \Timber::get_menu( $menu_slug );
-      $menu->items = $menu->get_items();
 
-      // If provided a menu item slug, return this menu item as 
-      // if it were the top-level menu
-      if ( $menu_item_slug ) {
-        foreach( $menu->items as $menu_item ) {
-          if ( $menu_item_slug === $menu_item->slug() ) {
-            $menu = $menu_item;
-            break;
+      if ($menu) {
+
+        $menu->items = $menu->get_items();
+
+        // If provided a menu item slug, return this menu item as 
+        // if it were the top-level menu
+        if ( $menu_item_slug ) {
+          foreach( $menu->items as $menu_item ) {
+            if ( $menu_item_slug === $menu_item->slug() ) {
+              $menu = $menu_item;
+              break;
+            }
           }
         }
       }

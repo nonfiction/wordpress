@@ -21,7 +21,7 @@ class App {
     // register_theme_directory( static::$path . '/themes' );
 
     // Initalize Timber and set the directory
-    $timber = new Timber\Timber();
+    $timber = \Timber\Timber::init();
 
     // Set the default template directories
     //Timber::$dirname = [ '../../blocks', '../../posts', '../../views'  ];

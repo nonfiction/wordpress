@@ -17,15 +17,15 @@ remove_theme_support( 'core-block-patterns' );
 add_filter( 'timber/context', function($context) {
 
   $context['site'] = new \Timber\Site();
-  $context['menu_brand'] = new Menu( 'Brand' );
-  $context['menu_primary'] = new Menu( 'Primary' );
-  $context['menu_footer'] = new Menu( 'Footer' );
+  $context['menu_primary'] = Menu::get_menu( 'primary' );
+  // $context['menu_footer'] = Menu::get_menu( 'footer' );
+  // $context['menu_brand'] = Menu::get_menu( 'brand' );
 
   $context['img'] = '/assets/img';
   $context['s'] = get_search_query();
 
-  $context['post'] = PostType::get_post();
-  $context['posts'] = PostType::get_posts();
+  $context['post'] = \Timber::get_post();
+  $context['posts'] = \Timber::get_posts();
 
   return $context;
 
