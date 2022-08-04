@@ -16,10 +16,13 @@ export SMTP_PASSWORD
 esh /etc/msmtprc.esh > /etc/msmtprc
 
 # Symlink theme folder to where it belongs
-ln -sf /srv/theme /srv/web/content/themes/theme
+rm -rf /srv/web/content/themes/theme && ln -sf /srv/theme /srv/web/content/themes/theme
 
 # Assets in the /srv/app/views/img directory are web public at /assets/img
-ln -sf /srv/app/views/img /srv/web/assets/img
+rm -rf /srv/web/assets/img && ln -sf /srv/app/views/img /srv/web/assets/img
+
+# Workarounds so resources can still be found when looking in the wrong place
+rm -rf /srv/web/wp-content && ln -sf /srv/web/content /srv/web/wp-content
 
 # Protect drop-in plugins from being modified
 chown root:root /srv/web/content/object-cache.php && chmod -w /srv/web/content/object-cache.php
