@@ -13,6 +13,11 @@ add_theme_support( 'post-thumbnails' );
 add_theme_support( 'align-wide' );
 remove_theme_support( 'core-block-patterns' );
 
+add_filter('wp_enqueue_scripts', function() {
+  wp_deregister_style('classic-theme-styles');
+  wp_dequeue_style('classic-theme-styles');
+}, 100);
+
 // Set values used in most templates
 add_filter( 'timber/context', function($context) {
 

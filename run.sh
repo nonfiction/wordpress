@@ -32,7 +32,7 @@ chown root:root /srv/web/content/db.php && chmod -w /srv/web/content/db.php
 # Ensure the cache is cleared
 rm -rf /srv/web/content/cache/* 
 rm -rf /srv/web/content/settings/* 
-/usr/local/bin/wp cache flush &
+/usr/local/bin/wp cache flush
 
 # Make sure upload/cache/settings directories are writeable
 chown -R www-data:www-data /srv/web/content/uploads /srv/web/content/cache /srv/web/content/settings &

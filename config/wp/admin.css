@@ -10,7 +10,8 @@
   .edit-post-fullscreen-mode-close.has-icon:hover {
     filter: grayscale(100%);
   }
-  .edit-post-fullscreen-mode-close.has-icon svg { 
+  .edit-post-fullscreen-mode-close.has-icon svg,
+  .edit-post-fullscreen-mode-close.has-icon img { 
     display: none; 
   }
 }

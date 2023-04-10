@@ -52,8 +52,11 @@ deploy:	context		; @bin/run deploy
 artifact: webpack composer build;
 
 # Push/pull data to/from current docker context
-push_db: context		; @bin/run push_db
-pull_db: context		; @bin/run pull_db
+# push_db: context		; @bin/run push_db
+# pull_db: context		; @bin/run pull_db
+push_db: context		; @bin/run push_swarmdb
+pull_db: context		; @bin/run pull_swarmdb
+migrate_db: context		; @bin/run migrate_db
 push_uploads: context 		; @bin/run push_uploads
 pull_uploads: context 		; @bin/run pull_uploads
 
@@ -66,7 +69,8 @@ oneoff:			; docker run -it --rm -v $(shell bin/get uploads):/srv/web/content/upl
 login:			; @bin/get login
 
 # Initialize website
-init_db:		; @bin/run init_db
+# init_db:		; @bin/run init_db
+init_db:		; @bin/run init_swarmdb
 init_wp: 		; @bin/run init_wp
 wait:			; sleep 15
 init: init_db npm composer up wait init_wp 

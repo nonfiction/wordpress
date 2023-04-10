@@ -21,6 +21,8 @@ web/wp
 web/assets/img
 web/content/app
 web/wp-content
+web/upload
+web/app
 
 # WP mu-plugins
 web/content/mu-plugins/*

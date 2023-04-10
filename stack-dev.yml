@@ -68,7 +68,7 @@ services:
       WP_ENV: "development"
       HOST: "<%= $(bin/get host) %>"
 
-      DB_HOST: "<%= $(bin/get DB_HOST) %>:<%= $(bin/get DB_PORT) %>"
+      DB_HOST: "db:3306"
       DB_NAME: "<%= $(bin/get db_name) %>"
       DB_USER: "<%= $(bin/get db_user) %>"
       DB_PASSWORD: "<%= $(bin/get db_password) %>"
@@ -95,10 +95,11 @@ services:
 
     networks:
       - backend
+      - db
 
   # Cron
   cron:
-    image: nonfiction/wordpress-cron:v2
+    image: nonfiction/wordpress-cron:v3
 
     deploy:
       mode: replicated
@@ -110,8 +111,8 @@ services:
       HOST: "<%= $(bin/get host) %>"
       HOST_USER: "<%= $(bin/get host_user) %>"
       HOST_PASSWORD: "<%= $(bin/get host_password) %>"
-      DB_HOST: "<%= $(bin/get DB_HOST) %>"
-      DB_PORT: "<%= $(bin/get DB_PORT) %>"
+      DB_HOST: "db"
+      DB_PORT: "3306"
       DB_USER: "<%= $(bin/get db_user) %>"
       DB_PASSWORD: "<%= $(bin/get db_password) %>"
       DB_NAME: "<%= $(bin/get db_name) %>"
@@ -121,7 +122,7 @@ services:
 
     networks:
       - proxy
-
+      - db
 
   # Object Cache
   redis:
@@ -147,6 +148,10 @@ networks:
   backend:
   proxy:
     name: proxy
+    driver: overlay
+    external: true
+  db:
+    name: db
     driver: overlay
     external: true
 
