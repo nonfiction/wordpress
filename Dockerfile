@@ -1,4 +1,4 @@
-FROM nonfiction/wordpress-base:v2
+FROM nonfiction/wordpress-base:v3
 
 # Copy the codebase
 COPY ./app /srv/app

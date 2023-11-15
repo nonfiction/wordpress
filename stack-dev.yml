@@ -18,13 +18,16 @@ services:
 
         <% ROUTER="$(bin/get app)" -%>
         <% SERVICE="$(bin/get app)" %>
+        <% CSP="$(bin/get app)-csp" %>
         traefik.http.routers.<%= $ROUTER -%>.entrypoints: "websecure"
         traefik.http.routers.<%= $ROUTER -%>.rule: "Host(`<%= $(bin/get host) %>`)"
         traefik.http.routers.<%= $ROUTER -%>.tls.certresolver: "resolver-dns"
         traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].main: "<%= $(bin/get swarm) %>"
         traefik.http.routers.<%= $ROUTER -%>.tls.domains[0].sans: "*.<%= $(bin/get swarm) %>"
+        traefik.http.routers.<%= $ROUTER -%>.middlewares: "<%= $CSP %>@docker"
         traefik.http.services.<%= $SERVICE -%>.loadbalancer.server.port: "443"
         traefik.http.services.<%= $SERVICE -%>.loadbalancer.server.scheme: "https"
+        traefik.http.middlewares.<%= $CSP -%>.headers.customResponseHeaders.Content-Security-Policy: "frame-ancestors 'self'"
 
     environment:
       # used by webpack.config.js

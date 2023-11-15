@@ -44,7 +44,7 @@ class MenuItem extends \Timber\MenuItem {
   public function post_type_children() {
     if ( $this->_post_type_children===null ) {
       $children = [];
-      $obj = $this->master_object();
+      $obj = $this->master_object() ?? '';
       if ( method_exists($obj, 'post_type_children') ) {
         $children = $obj->post_type_children() ?? [];
       }
