@@ -550,7 +550,7 @@ class PostType extends \Timber\Post {
         $role = get_role( $role_type );
 
         foreach( $cap_types as $cap_type ) {
-          $role->add_cap( "${cap_type}_${key_plural}" );
+          $role->add_cap( "{$cap_type}_{$key_plural}" );
         }
       }
 

@@ -88,7 +88,7 @@ Config::define( 'FS_METHOD', env('FS_METHOD') ?: 'direct' );
 
 // Query Monitor Settings
 Config::define( 'QM_DARK_MODE', env('QM_DARK_MODE') ?: true );
-Config::define( 'QM_ENABLE_CAPS_PANEL', env('QM_ENABLE_CAPS_PANEL') ?: true );
+Config::define( 'QM_ENABLE_CAPS_PANEL', env('QM_ENABLE_CAPS_PANEL') ?: false );
 Config::define( 'QM_DB_SYMLINK', env('QM_DB_SYMLINK') ?: false );
 Config::define( 'QM_DISABLE_ERROR_HANDLER', env('QM_DISABLE_ERROR_HANDLER') ?: false ); // https://querymonitor.com/blog/2018/07/silencing-errors-from-plugins-and-themes/
 

@@ -155,8 +155,8 @@ function add_actions( array $tags, $function_to_add, $priority = 10, $accepted_a
 }
 
 function add_ajax_action( $tag, $function_to_add, $priority = 10, $accepted_args = 1 ) {
-  add_action( "wp_ajax_${tag}", $function_to_add, $priority, $accepted_args );
-  add_action( "wp_ajax_nopriv_${tag}", $function_to_add, $priority, $accepted_args );
+  add_action( "wp_ajax_{$tag}", $function_to_add, $priority, $accepted_args );
+  add_action( "wp_ajax_nopriv_{$tag}", $function_to_add, $priority, $accepted_args );
 }
 
 
@@ -207,7 +207,7 @@ function csv($input = []) {
   $output = [];
   foreach( $input as $key => $val) {
     if ($val) {
-      $output[] = "${key}:${val}";
+      $output[] = "{$key}:{$val}";
     }
   }
   return join(',', $output);
